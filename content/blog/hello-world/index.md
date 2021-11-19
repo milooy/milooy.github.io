@@ -1,8 +1,11 @@
 ---
-title: Hello World
-date: "2015-05-01T22:12:03.284Z"
+title: 헬로 월드
+date: "2021-11-18T22:12:03.284Z"
 description: "Hello World"
 ---
+
+걍 기본 블로그 템플릿을 고치는게 속편하겠다~
+마음에 드는 템플릿이 없어용
 
 This is my first post on my new fake blog! How exciting!
 
