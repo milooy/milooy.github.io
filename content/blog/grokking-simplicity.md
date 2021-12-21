@@ -98,7 +98,19 @@ withLogging(() => saveUser(user))
 예를 들어 `+`같은건 일급객체가 아니지만
 `function plus(a, b){return a + b}` 처럼 함수로 감싸 일급객체로 만들 수 있다. 이젠 이걸 맘대로 던지고 받을 수 있겠지.
 
-### 고차 함수란?
+### 고차 함수(High Order Function)란?
 
 다른 함수를 인수로 받거나 리턴하는 함수. 이걸 응용해서 다양한 동작을 추상활 할 수 있다.
+대표적으로 `forEach(arr, fn)`
 
+
+## Ch.12
+map, filter, reduce 써라
+
+## Ch.13
+
+### 가비지 배열
+```js
+var goodCustomers = filter(customers, isGoodCustomer); // 여기서 goodCustomers는 필터링 중간에 한번만 쓰이고 다신 안쓰임. 쓰레기임.
+var withAddress = filter(goodCustomers, hasAddress); 
+```
