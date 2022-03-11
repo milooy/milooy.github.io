@@ -1,8 +1,14 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { Link, PageProps } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 
-const Layout = ({ location, title, children }) => {
+type Props = {
+  title: string
+  children: React.ReactNode
+  location: Location
+}
+
+const Layout = ({ location, children }: Props) => {
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
 
