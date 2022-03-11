@@ -1,7 +1,6 @@
 ---
 title: Grokking Simplicity 독서노트
 date: "2021-11-23"
-description: "메익 더 베럴 월드"
 ---
 
 ## Ch.8~9 계층화하기
