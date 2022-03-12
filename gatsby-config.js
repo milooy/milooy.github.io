@@ -99,6 +99,7 @@ module.exports = {
                     frontmatter {
                       title
                       date
+                      category
                     }
                   }
                 }
@@ -134,5 +135,13 @@ module.exports = {
         shortname: `milooy`,
       },
     },
+    {
+      resolve: "gatsby-plugin-page-creator",
+      options: {
+        path: `${__dirname}/content/blog`,
+      },
+    },
+    `gatsby-plugin-mdx`,
+    `gatsby-plugin-styled-components`,
   ],
 }

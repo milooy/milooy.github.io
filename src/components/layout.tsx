@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Link, PageProps } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
+import TopNav from "./TopNav"
 
 type Props = {
   title: string
@@ -13,8 +14,11 @@ const Layout = ({ location, children }: Props) => {
   const isRootPath = location.pathname === rootPath
 
   return (
-    <div className="global-wrapper" data-is-root-path={isRootPath}>
-      <header className="global-header">
+    <div>
+      <TopNav />
+
+      <div className="global-wrapper" data-is-root-path={isRootPath}>
+        {/* <header className="global-header">
         <Link className="header-link-home" to="/">
           <StaticImage
             className="main-heading"
@@ -26,13 +30,14 @@ const Layout = ({ location, children }: Props) => {
             alt="Profile picture"
           />
         </Link>
-      </header>
-      <main>{children}</main>
-      <footer>
-        Yurim Jin, with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
-      </footer>
+      </header> */}
+        <main>{children}</main>
+        <footer>
+          Yurim Jin, with
+          {` `}
+          <a href="https://www.gatsbyjs.com">Gatsby</a>
+        </footer>
+      </div>
     </div>
   )
 }
