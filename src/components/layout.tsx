@@ -32,11 +32,7 @@ const Layout = ({ location, children }: Props) => {
         </Link>
       </header> */}
         <main>{children}</main>
-        <footer>
-          Yurim Jin, with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
+        <footer>With love, Yurim Jin</footer>
       </div>
     </div>
   )

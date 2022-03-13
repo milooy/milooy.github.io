@@ -2,6 +2,7 @@
 title: (TypeScript) catch절의 error변수 접근시 'Argument of type 'unknown' is not assignable...'에러가 나요!
 date: "2021-11-22"
 description: "TS 4.0의 unknown on catch Clause Bindings 업뎃 때문이랍니다"
+category: dev
 ---
 
 ## TL;DR
@@ -23,11 +24,12 @@ TS v4로 업뎃하고 타입체크(`yarn tsc --noEmit`)를 돌려보니 에러�
 ```js
 try {
   // 어쩌구
-} catch (x) { // x가 any라서
-  x.message; // 오브젝트라 가정할수도 있고
-  x.toUpperCase(); // 스트링이라 가정할수도 있었음.
-  x++;
-  x.yadda.yadda.yadda(); // 맘대로 다 불러도 타입에러가 나지 않았음.
+} catch (x) {
+  // x가 any라서
+  x.message // 오브젝트라 가정할수도 있고
+  x.toUpperCase() // 스트링이라 가정할수도 있었음.
+  x++
+  x.yadda.yadda.yadda() // 맘대로 다 불러도 타입에러가 나지 않았음.
 }
 ```
 
@@ -42,10 +44,10 @@ try {
 try {
   // 어쩌구
 } catch (x) {
-  x.message; // type error: Object is of type 'unknown'
-	if (typeof e === 'string') {
-		x.toUpperCase(); // 해결!
-	}
+  x.message // type error: Object is of type 'unknown'
+  if (typeof e === "string") {
+    x.toUpperCase() // 해결!
+  }
 }
 ```
 

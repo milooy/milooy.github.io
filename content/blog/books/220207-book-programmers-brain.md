@@ -1,6 +1,7 @@
 ---
 title: "[독서노트] 프로그래머의 뇌"
 description: test
+category: book
 ---
 
 ### 우리는 왜 코드를 못알아먹을까

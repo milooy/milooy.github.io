@@ -2,6 +2,7 @@
 title: 글감 Inbox
 date: "2021-11-19T16:46:37.121Z"
 description: "마음의 빚"
+category: inbox
 ---
 
 ## 테크

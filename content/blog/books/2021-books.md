@@ -1,7 +1,7 @@
 ---
 title: 2021 독서
 description: "5년 후의 나를 결정하는 두 가지는 만나는 사람과 읽는 책"
-category: "책 읽어요"
+category: book
 ---
 
 ## 들어가며

@@ -2,11 +2,11 @@
 title: Gatsby의 Static Image란?
 date: "2021-11-19T23:46:37.121Z"
 description: "img태그에 슈퍼파워를 불어넣자"
+category: dev
 ---
 
 로고나 랜딩페이지의 상단 이미지(Hero 이미지)등 바뀔 일이 없는 이미지를 보여줄 때 사용한다.
 (바뀌는 이미지는 DynamicImage를 사용하면 돼요~)
-
 
 ```jsx
 import { StaticImage } from "gatsby-plugin-image"
@@ -26,13 +26,15 @@ export function Dino() {
 <StaticImage
   src="../images/dino.png"
   alt="A dinosaur"
-  placeholder="blurred"ㄴ
+  placeholder="blurred"
+  ㄴ
   layout="fixed"
   width={200}
   height={200}
 />
 ```
-width, height에 맞춰서 자리를 잡고, 로딩중에는 블러(저퀄) 이미지를 보여줄거다. 
+
+width, height에 맞춰서 자리를 잡고, 로딩중에는 블러(저퀄) 이미지를 보여줄거다.
 fixed 레이아웃을 사용해서 이미지 자리가 첨부터 계속 차지하게 할것이다(일반적으로 `<img/>` 태그 사용하면 로딩되기 전에는 자리를 차지하지 않아서 레이아웃이 뚜둑 바뀌죠)
 
 개츠비 [문서](https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-plugin-image) 보면 기타 다양한 기능을 볼 수 있음.
@@ -52,7 +54,6 @@ fixed 레이아웃을 사용해서 이미지 자리가 첨부터 계속 차지�
   - blurred: 아주 저화질 이미지를 블러해서 보여주기
   - tracedSVG: 원본 이미지의 간단한 svg버전을 보여줌. 간단한 이미지에만 사용하세요!
   - none: 안보여주기. 자리만 차지해요.
-
 
 ## Referrer
 

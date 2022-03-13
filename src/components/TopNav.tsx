@@ -8,8 +8,9 @@ import styled from "styled-components"
  */
 
 import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
+import { CATEGORIES } from "../utils/constants"
 
 const TopNav = () => {
   const data = useStaticQuery<{
@@ -32,7 +33,9 @@ const TopNav = () => {
   return (
     <>
       <nav style={navStyle}>
-        <h1 style={{ margin: 0 }}>Today yurim felt</h1>
+        <Link to="/">
+          <h1 style={{ margin: 0 }}>Today yurim felt</h1>
+        </Link>
         <StaticImage
           className="main-heading"
           formats={["auto", "webp", "avif"]}
@@ -48,23 +51,14 @@ const TopNav = () => {
       </nav>
       <Categories>
         {CATEGORIES.map(category => (
-          <CategoryItem>{category.label}</CategoryItem>
+          <StyledLink to={`/category/${category.value}`}>
+            <CategoryItem>{category.label}</CategoryItem>
+          </StyledLink>
         ))}
       </Categories>
     </>
   )
 }
-
-const CATEGORIES = [
-  { value: "INTRODUCTION", label: "나는" },
-  { value: "DEV", label: "개발 이야기" },
-  { value: "LIFE", label: "사는 이야기" },
-  { value: "BOOK", label: "책 읽어요" },
-  { value: "ART", label: "그림그리기" },
-  { value: "MEDIA", label: "눈과 귀" },
-  { value: "INBOX", label: "글감상자" },
-  { value: "GUEST", label: "방명록" },
-]
 
 const navStyle = {
   display: "flex",
@@ -80,10 +74,14 @@ const Categories = styled.ul`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-left: 24px;
   flex-wrap: wrap;
+  margin-bottom: 0;
 `
 
-const CategoryItem = styled.li`
+const CategoryItem = styled.li``
+
+const StyledLink = styled(Link)`
   margin-right: 3rem;
+  text-decoration: none;
 `
 
 export default TopNav

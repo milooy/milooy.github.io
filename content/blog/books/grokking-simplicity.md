@@ -1,6 +1,7 @@
 ---
 title: Grokking Simplicity 독서노트
 date: "2021-11-23"
+category: book
 ---
 
 ## Ch.8~9 계층화하기
@@ -70,7 +71,6 @@ try {
 
 모든 API에 try catch 감싸려면 넘 많이 반복해야함.
 
-
 ```js
 function withLogging(callback) {
   try {
@@ -102,14 +102,15 @@ withLogging(() => saveUser(user))
 다른 함수를 인수로 받거나 리턴하는 함수. 이걸 응용해서 다양한 동작을 추상활 할 수 있다.
 대표적으로 `forEach(arr, fn)`
 
-
 ## Ch.12
+
 map, filter, reduce 써라
 
 ## Ch.13
 
 ### 가비지 배열
+
 ```js
-var goodCustomers = filter(customers, isGoodCustomer); // 여기서 goodCustomers는 필터링 중간에 한번만 쓰이고 다신 안쓰임. 쓰레기임.
-var withAddress = filter(goodCustomers, hasAddress); 
+var goodCustomers = filter(customers, isGoodCustomer) // 여기서 goodCustomers는 필터링 중간에 한번만 쓰이고 다신 안쓰임. 쓰레기임.
+var withAddress = filter(goodCustomers, hasAddress)
 ```

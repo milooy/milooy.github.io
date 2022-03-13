@@ -13,7 +13,12 @@ type DataProps = {
   allMarkdownRemark: any // FIXME
 }
 
-const BlogIndex = ({ data, location }: PageProps<DataProps>) => {
+const CategoryPage = ({
+  data,
+  location,
+  pageContext,
+}: PageProps<DataProps>) => {
+  const category = pageContext.category
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
 
@@ -56,16 +61,19 @@ const BlogIndex = ({ data, location }: PageProps<DataProps>) => {
   )
 }
 
-export default BlogIndex
+export default CategoryPage
 
 export const pageQuery = graphql`
-  query {
+  query CategoryPage($category: String) {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(
+      sort: { fields: [frontmatter___date], order: DESC }
+      filter: { frontmatter: { category: { eq: $category } } }
+    ) {
       nodes {
         excerpt
         fields {
