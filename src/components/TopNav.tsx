@@ -13,23 +13,6 @@ import { StaticImage } from "gatsby-plugin-image"
 import { CATEGORIES } from "../utils/constants"
 
 const TopNav = () => {
-  const data = useStaticQuery<{
-    categories: {
-      group: Array<{ fieldValue: string }>
-    }
-  }>(graphql`
-    query CategoryQuery {
-      categories: allMarkdownRemark(limit: 2000) {
-        group(field: frontmatter___category) {
-          fieldValue
-          totalCount
-        }
-      }
-    }
-  `)
-
-  const categories = data.categories.group
-
   return (
     <>
       <nav style={navStyle}>
@@ -41,17 +24,13 @@ const TopNav = () => {
           formats={["auto", "webp", "avif"]}
           src="../images/profile-pic.jpeg"
           placeholder="none"
-          // width={300}
           height={110}
           alt="Profile picture"
         />
-        {/* {categories.map(category => (
-        <div>{category.fieldValue}</div>
-      ))} */}
       </nav>
       <Categories>
         {CATEGORIES.map(category => (
-          <StyledLink to={`/category/${category.value}`}>
+          <StyledLink to={category.to}>
             <CategoryItem>{category.label}</CategoryItem>
           </StyledLink>
         ))}

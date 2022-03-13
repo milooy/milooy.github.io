@@ -5,6 +5,7 @@ import { Disqus } from "gatsby-plugin-disqus"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import styled from "styled-components"
 
 interface Props {
   data: any // TODO: 쉽게 타이핑하는법 알아내기
@@ -27,10 +28,11 @@ const BlogPostTemplate = ({ data, location }: Props) => {
         itemScope
         itemType="http://schema.org/Article"
       >
-        <header>
+        <Header>
+          <Category>{post.frontmatter.category.toUpperCase()}</Category>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
-        </header>
+          <Date>{post.frontmatter.date}</Date>
+        </Header>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
           itemProp="articleBody"
@@ -98,6 +100,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        category
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
@@ -117,4 +120,16 @@ export const pageQuery = graphql`
       }
     }
   }
+`
+
+const Header = styled.header`
+  margin-bottom: 70px;
+`
+const Category = styled.p`
+  font-weight: bold;
+  margin-bottom: 0;
+  font-family: "Segoe UI";
+`
+const Date = styled.p`
+  text-align: right;
 `
