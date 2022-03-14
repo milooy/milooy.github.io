@@ -29,7 +29,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
         itemType="http://schema.org/Article"
       >
         <Header>
-          <Category>{post.frontmatter.category.toUpperCase()}</Category>
+          <Category>{post.frontmatter.category?.toUpperCase()}</Category>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <Date>{post.frontmatter.date}</Date>
         </Header>
