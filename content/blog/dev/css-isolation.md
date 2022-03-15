@@ -1,7 +1,7 @@
 ---
 title: CSS isolation
 description: TBD
-date: "2022-3-1"
+date: "2022-03-01"
 category: dev
 ---
 

@@ -42,7 +42,7 @@ const TopNav = () => {
 const navStyle = {
   display: "flex",
   justifyContent: "space-between",
-  borderBottom: "1px solid rgba(0,0,0,.1)",
+  borderBottom: "1px solid rgb(251 251 251 / 32%)",
   alignItems: "center",
   paddingLeft: 24,
 }
@@ -50,7 +50,7 @@ const navStyle = {
 const Categories = styled.ul`
   display: flex;
   list-style: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgb(251 251 251 / 32%);
   padding-left: 24px;
   flex-wrap: wrap;
   margin-bottom: 0;
@@ -61,6 +61,7 @@ const CategoryItem = styled.li``
 const StyledLink = styled(Link)`
   margin-right: 3rem;
   text-decoration: none;
+  color: white;
 `
 
 export default TopNav

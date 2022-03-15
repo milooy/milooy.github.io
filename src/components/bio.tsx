@@ -31,7 +31,7 @@ const Bio = () => {
   const social = data.site.siteMetadata?.social
 
   return (
-    <div className="bio">
+    <div className="bio" style={{ alignItems: "center" }}>
       <StaticImage
         className="bio-avatar"
         layout="fixed"
@@ -44,11 +44,8 @@ const Bio = () => {
       />
       {author?.name && (
         <p>
-          <strong>{author.name}</strong> a.k.a {author?.summary || null}
-          {` `}
-          <a href={`https://twitter.com/${social?.twitter || ``}`}>
-            You should follow them on Twitter
-          </a>
+          <strong>{author.name}</strong> a.k.a {author?.summary || null}{" "}
+          <a href="https://twitter.com/jayjinjay">twitter</a>
         </p>
       )}
     </div>

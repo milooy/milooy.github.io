@@ -1,7 +1,8 @@
 ---
 title: 모던 자바스크립트 Deep Dive
 description: test2
-category: dev
+category: book
+date: "2022-01-01"
 ---
 
 ## 코드를 짜기 위한 사전능력: 컴퓨팅 사고
