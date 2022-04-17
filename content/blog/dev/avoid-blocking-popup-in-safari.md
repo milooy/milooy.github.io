@@ -11,7 +11,7 @@ category: dev
 
 2와 1이 바뀌어도 차단되는걸 유념해주세요.
 
-## 차단 예시 1: 비동기 콜 안에서 팝업 열기
+## 차단 예시: 비동기 콜 안에서 팝업 열기
 
 ```js
 fetchCat("야옹").then(url => {
@@ -22,8 +22,6 @@ fetchCat("야옹").then(url => {
   )
 })
 ```
-
-## 차단 예시 2: 비동기 콜 이후 팝업 열기
 
 ```js
 const url = await fetchCat("야옹")
