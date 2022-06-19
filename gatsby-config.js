@@ -6,7 +6,7 @@ module.exports = {
       summary: `테니스치다 손목 삔 개발자`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
+    siteUrl: `https://milooy.github.io/`,
     social: {
       twitter: `jayjinjay`,
     },
