@@ -22,7 +22,7 @@ XState에서는 이벤트를 통해 상태 사이를 이동할 수 있는데요,
 이미 그래프로 흐름이 잘 표현되어있는 구조에 뒤로가기 기능만을 위하여 모든 상태노드에 이벤트를 추가하는게 번거로울 뿐더러 유지보수 측면에도 좋지 않고,
 뒤로가기 해서 보여줘야 하는 페이지가 dynamic할 때 (e.g. 유심시리얼번호스텝 은 개통안내스텝 로부터 왔을수도 있고 브릿지스텝 으로부터 왔을수도 있다) 구조를 추가적으로 변경해줘야 한다는(compound한 뒤 history node쓰는 등) 단점이 있어요.
 
-상태를 뒤로 이동할 다른 아이디어가 있을까요?
+상태를 뒤로 이동할 좋은 아이디어가 있을까?
 (현재 상태 이동시 shallow push를 해서 history스택 및 url(쿼리파라미터)는 관리되고 있습니다)
 전 요런 방식 생각해봄
 
@@ -56,50 +56,209 @@ export const LGU개통상태머신 = createMachine({
 
 ### 방법2: Static하게 역계산해두기 (feat. cond + context)
 
-static하게 역계산을 해낼 수 있을까? (쨋든 트랜지션을 다 static하게 정의해낼 수 있긴 할것같음)
+### 예시 상황
 
-- 무슨 액션을 통해서 온 지 안다면 그 액션을 쏜 노드로 보내주기?
+> A페이지에서 이벤트1을 하면 B페이지로 가고, 이벤트2를 하면 C페이지로 갑니다.
+> B페이지에서 이벤트3을 하면 C페이지로 갑니다.
 
-a에서 이벤트1을 하면 b로 가고 이벤트2를 하면 c로 감
-b에서 이벤트3을 하면 c로 감
-
-- c에서 뒤로가기 하면
-
-  - meta.event.type 이 '개통하기\_클릭'임
-    - 근데 이벤트가 string이기만 하고 id가 없어서 판별할수가 없음 ㅠ
-  - 이벤트3을 통해 왔다면 b로
-  - 이벤트2를 통해 왔다면 a로 보내면 됨.
-
-- c에서 뒤로가기 하면
-
-  - target을 c로 보내는 모든 노드를 찾음: a, b
-  - 컨디션1: context.fromNode가 a면 a로 보낸다
-  - 컨디션2: context.fromNode가 b면 b로 보낸다
-  - context에 history를 동적으로 쌓으면 가능할수도? history는 면밀하게 context에 잘 쌓고,
-
-  ```js
-  {
-    on: {
-      BACK: [
-        {
-          cond: (context, _event, meta) => {
-            const previousStepName =
-              context.history[context.history.indexOf(currentStep) - 1]
-            return meta.state.matches("c") && previousStepName === "a"
-          },
-          target: "a",
-        },
-        {
-          cond: (context, _event, meta) => {
-            const previousStepName =
-              context.history[context.history.indexOf(currentStep) - 1]
-            return meta.state.matches("c") && previousStepName === "b"
-          },
-          target: "b",
-        },
-      ]
+```js
+{
+  state: {
+    A페이지: {
+      on: {
+        이벤트1: { target: 'B페이지' },
+        이벤트2: { target: 'C페이지' },
+      }
+    },
+    B페이지: {
+      on: {
+        이벤트3: { target: 'C페이지' },
+      }
+    },
+    C페이지: {
+      type: 'final'
     }
   }
-  ```
+}
+```
 
-  -
+여기서 C페이지에서 뒤로가기 하면 히스토리에 따라 B페이지/A페이지로 갈 수 있습니다.
+이를 미리 정의해놓기 위해 state를 참고해 target을 C페이지로 보내는 모든 노드를 찾고(A페이지, B페이지)
+
+- cond에서 context를 참고해 이전 페이지로 돌아갈 수 있는 조건을 만들어줍니다.
+  - 컨디션1: context.previousStep이 A페이지면 A페이지로 보낸다
+  - 컨디션2: context.previousStep이 B페이지면 B페이지로 보낸다
+
+```js
+{
+  on: {
+    BACK: [
+      {
+        cond: (context, _event, meta) => {
+          const currentStepName = "C페이지"
+          const previousStepName =
+            context.history[context.history.indexOf(currentStep) - 1]
+          return (
+            meta.state.matches(currentStepName) &&
+            previousStepName === "A페이지"
+          )
+        },
+        target: "A페이지",
+      },
+      {
+        cond: (context, _event, meta) => {
+          const currentStepName = "C페이지"
+          const previousStepName =
+            context.history[context.history.indexOf(currentStep) - 1]
+          return (
+            meta.state.matches(currentStepName) &&
+            previousStepName === "B페이지"
+          )
+        },
+        target: "B페이지",
+      },
+    ]
+  }
+}
+```
+
+### 코드
+
+이는 코드로 다음과 같이 표현할 수 있습니다.
+
+```js
+export function generateBackConditionsWithContext(
+  states: StatesConfig<any, any, any>
+) {
+  const backConditions: TransitionsConfig<any, any> = []
+
+  Object.keys(states).map(state => {
+    const stateNodeConfig = states[state]
+    if (stateNodeConfig === undefined) {
+      return
+    }
+    const targetStepNodes = deepSearchItems(stateNodeConfig, "target")
+
+    targetStepNodes.map(({ target }) => {
+      backConditions.push({
+        cond: (context, _event, meta) => {
+          const currentStepName = target
+          // TODO: 뭔가 히스토리가 이상한데? indexOf인지 lastIndexOf인지 확인필요
+          const previousStepName =
+            context.history[context.history.lastIndexOf(currentStepName) - 1]
+          return (
+            meta.state.matches(currentStepName) && previousStepName === state
+          )
+        },
+        target: state,
+        event: undefined, // 필요 없지만 타입을 맞추기 위해 넣음
+      })
+    })
+  })
+
+  return backConditions
+}
+
+// @see https://stackoverflow.com/a/54470906
+export function deepSearchItems(object: Record<any, any>, keyToFind: string) {
+  let result: any[] = []
+  const hasKeyProperty = Object.prototype.hasOwnProperty.call(object, keyToFind)
+
+  if (hasKeyProperty) {
+    result = [...result, object]
+  }
+  if (Object.keys(object).length) {
+    for (let i = 0; i < Object.keys(object).length; i++) {
+      const objectKey = Object.keys(object)[i]
+      if (objectKey === undefined) {
+        return []
+      }
+      const value = object[objectKey]
+      if (typeof value === "object" && value != null) {
+        const o = deepSearchItems(object[objectKey], keyToFind)
+        if (o != null && o instanceof Array) {
+          result = [...result, ...o]
+        }
+      }
+    }
+  }
+  return result
+}
+```
+
+머신을 사용하는 측에서 히스토리 관련 코드를 추가합니다.
+
+```js
+// 1. 상태 전이가 일어날 때마다 URL을 shallow업데이트 해서 history를 관리하고, xstate context에 history를 추가적으로 쌓는 액션을 호출합니다.
+useEffect(() => {
+  service.onTransition(state => {
+    const isTransitionBySendingPushHistoryEvent =
+      state.event.type === "PUSH_HISTORY"
+    if (isTransitionBySendingPushHistoryEvent) {
+      return
+    }
+
+    const url = `${QS.create({ ...Router.query, [stepQueryKey]: state.value })}`
+    Router.push(url, undefined, {
+      shallow: true,
+    })
+    send("PUSH_HISTORY", { currentStep: state.value })
+  })
+}, [send, service, stepQueryKey])
+
+// 2. 뒤로가기시에 xstate 상태도 동기화를 시켜주기 위해 xstate액션을 호출합니다
+useEffect(() => {
+  Router.beforePopState(({ as }) => {
+    if (as !== Router.asPath) {
+      // TODO: 앞으로 가기 대응필요
+      send("BACK")
+    }
+    return true
+  })
+
+  return () => {
+    Router.beforePopState(() => true)
+  }
+}, [send])
+```
+
+xstate 머신에도 PUSH_HISTORY, BACK 이벤트를 추가해주면 완성!
+
+```js
+export const machine = createMachine<FunnelContext, AnyEventObject, FunnelTypeState>(
+  {
+    predictableActionArguments: true,
+    id: '뒤로가기가능머신',
+    on: {
+      PUSH_HISTORY: {
+        actions: 'pushHistory',
+      },
+      BACK: generateBackConditionsWithContext(states),
+    },
+    states,
+  },
+
+  {
+    actions: {
+      pushHistory: assign({
+        history: (prev, event) => [...prev.history, event.currentStep],
+      }),
+      // ...
+    },
+    guards: {
+      // ...
+    },
+  }
+);
+```
+
+사실 좀 더 폴리싱 필요.. 근데 얼추 됨! ㅎㅎ
+
+<!-- - 이렇게 하려면 step 이동시마다 history를 쌓아야 한다
+  - 머신 밖에서 동적으로 쌓기
+    - onTransition에서 `send('PUSH_HISTORY', {currentStep: state.value})` 하면 이 이벤트가 상태 전이를 일으키지 않더라도 다시 onTransition을 부르나봄... 그래서 무한호출
+      - send 호출로 일어난 onTransition을 발라낼 수 있다면 거기선 send를 안 하면 될텐데
+        - => 이렇게 해서 성공! 무한호출이 일어나서 보기 어렵다면 debugger를 걸자
+  - 머신 내부에서 정적으로 정의해두기
+    - 모든 transition이 일어날 때마다 추가적으로 호출되는 이펙트에 PUSH_HISTORY 액션을 태우자
+    - 머신 최상단에 `always: { actions: 'pushHistory', cond: 'isAlways' },` 를 정의하고, isAlways 가드를 true로 반환하게 하니까 maximum call stack 에러가 난다. -->
