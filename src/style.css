@@ -147,7 +147,7 @@ h1 {
 h2 {
   font-size: var(--fontSize-5);
   color: var(--color-primary-2);
-  margin-top: var(--spacing-20);
+  margin-top: var(--spacing-24);
   margin-bottom: var(--spacing-4);
 }
 

@@ -59,7 +59,7 @@ XState는 정해진 개수의 이벤트를 통해 상태를 변경시키는 컨�
 
 하지만 결국 그랬듯이 우리는 답을 찾아낼 수 있습니다.
 
-### 방법1: 정적인 배열을 참고해 뒤로갈, 앞으로 갈 페이지 알아내기
+## 방법1: 정적인 배열을 참고해 뒤로갈, 앞으로 갈 페이지 알아내기
 
 ```js
 const steps = ["a페이지", "b페이지", "c페이지"]
@@ -85,7 +85,7 @@ export const machine = createMachine({
 
 - 비슷한 디스커션: https://github.com/statelyai/xstate/discussions/1939
 
-### 방법2: 상태 그래프를 통해 정적으로 역계산 + Context에서 History객체 관리
+## 방법2: 상태 그래프를 통해 정적으로 역계산 + Context에서 History객체 관리
 
 ### 예시 상황
 
@@ -283,7 +283,7 @@ export const machine = createMachine<FunnelContext, AnyEventObject, FunnelTypeSt
 );
 ```
 
-### 방법3: 인접노드 이동만 Static하게 생성해두기 (feat. cond + event)
+## 방법3: 인접노드 이동만 Static하게 생성해두기 (feat. cond + event)
 
 #### 방법 2의 한계: 뒤로가기만 되고 앞으로가기는 안됨..
 
