@@ -16,13 +16,13 @@ const TopNav = () => {
   return (
     <>
       <nav style={navStyle}>
-        <Link to="/">
+        <Link to="/" style={{ textDecoration: "none" }}>
           <h1 style={{ margin: 0 }}>Today yurim felt</h1>
         </Link>
         <StaticImage
           className="main-heading"
           formats={["auto", "webp", "avif"]}
-          src="../images/profile-pic.jpeg"
+          src="../images/profile-pic.png"
           placeholder="none"
           height={110}
           alt="Profile picture"
@@ -42,18 +42,22 @@ const TopNav = () => {
 const navStyle = {
   display: "flex",
   justifyContent: "space-between",
-  borderBottom: "1px solid rgb(251 251 251 / 32%)",
+  borderBottom: "1px solid var(--color-border)",
+  background: "var(--color-background-3)",
   alignItems: "center",
   paddingLeft: 24,
 }
 
 const Categories = styled.ul`
+  background: var(--color-background);
   display: flex;
   list-style: none;
-  border-bottom: 1px solid rgb(251 251 251 / 32%);
+  border-bottom: 1px solid var(--color-border);
   padding-left: 24px;
   flex-wrap: wrap;
   margin-bottom: 0;
+  margin-top: 0;
+  padding-top: 16px;
 `
 
 const CategoryItem = styled.li``
@@ -61,7 +65,7 @@ const CategoryItem = styled.li``
 const StyledLink = styled(Link)`
   margin-right: 3rem;
   text-decoration: none;
-  color: white;
+  color: black;
 `
 
 export default TopNav

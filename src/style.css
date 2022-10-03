@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Gothic:wght@400;700;800&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Gothic:wght@400;700;800&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;400;700;900&display=swap");
 /* CSS Custom Properties Definitions */
 
 :root {
@@ -31,10 +32,13 @@
   /* --fontFamily-sans: Montserrat, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
+
   /* --fontFamily-sans: "Nanum Gothic", sans-serif;
   --fontFamily-serif: "Nanum Gothic", sans-serif; */
-  --fontFamily-sans: "Gowun Batang", serif;
-  --fontFamily-serif: "Gowun Batang", serif;
+  /* --fontFamily-sans: "Gowun Batang", serif;
+  --fontFamily-serif: "Gowun Batang", serif; */
+  --fontFamily-sans: "Noto Serif KR", serif;
+  --fontFamily-serif: "Noto Serif KR", serif;
   --font-body: var(--fontFamily-serif);
   --font-heading: var(--fontFamily-sans);
   --fontWeight-normal: 400;
@@ -57,8 +61,10 @@
   --fontSize-5: 2.074rem;
   --fontSize-6: 2.488rem;
   --fontSize-7: 2.986rem;
-  --color-primary: #9164da;
-  --color-text: #2e353f;
+  --color-primary: #fe9f2d;
+  --color-primary-2: #4bacce;
+  /* --color-text: #2e353f; */
+  --color-text: #52575a;
   --color-text-light: #4f5969;
   --color-heading: #1a202c;
   --color-heading-black: black;
@@ -67,6 +73,11 @@
   --color-highlight-2: #8e9a9c;
   --color-gray-900: #16161c;
   --color-blueGray-500: #cfd4e9;
+
+  --color-background: #f7f8f9;
+  --color-background-2: #fcfdfc;
+  --color-background-3: #fdfcfc;
+  --color-border: #e5e8ea;
 }
 
 /* HTML elements */
@@ -78,8 +89,8 @@
 }
 
 html {
-  /* line-height: var(--lineHeight-normal); */
-  line-height: var(--lineHeight-relaxed);
+  line-height: var(--lineHeight-normal);
+  /* line-height: var(--lineHeight-relaxed); */
   font-size: var(--fontSize-root);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -88,8 +99,8 @@ html {
 body {
   font-family: var(--font-body);
   font-size: var(--fontSize-1);
-  color: var(--color-blueGray-500);
-  background: var(--color-gray-900);
+  color: var(--color-text);
+  background: var(--color-background-2);
 }
 
 footer {
@@ -113,7 +124,7 @@ h6 {
   font-family: var(--font-heading);
   margin-top: var(--spacing-12);
   margin-bottom: var(--spacing-6);
-  line-height: var(--lineHeight-tight);
+  /* line-height: var(--lineHeight-tight); */
   letter-spacing: -0.025em;
 }
 
@@ -123,18 +134,18 @@ h4,
 h5,
 h6 {
   font-weight: var(--fontWeight-bold);
-  color: rgb(223, 223, 223);
+  /* color: rgb(223, 223, 223); */
 }
 
 h1 {
   font-weight: var(--fontWeight-black);
   font-size: var(--fontSize-6);
-  color: white;
+  /* color: white; */
 }
 
 h2 {
   font-size: var(--fontSize-5);
-  color: var(--color-primary);
+  color: var(--color-primary-2);
   margin-top: var(--spacing-20);
   margin-bottom: var(--spacing-4);
 }
@@ -209,7 +220,7 @@ li > ul {
 }
 
 blockquote {
-  color: var(--color-blueGray-500);
+  /* color: var(--color-blueGray-500); */
   margin-left: calc(-1 * var(--spacing-6));
   margin-right: var(--spacing-8);
   padding: var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-6);
@@ -242,7 +253,7 @@ table thead tr th {
 /* Link */
 
 a {
-  color: var(--color-blueGray-500);
+  color: var(--color-primary);
 }
 
 a:hover,
@@ -282,7 +293,8 @@ a:focus {
 
 .post-list-item h2 {
   font-size: var(--fontSize-4);
-  color: var(--color-primary);
+  color: var(--color-text);
+  font-weight: 900;
   margin-bottom: var(--spacing-2);
   margin-top: var(--spacing-0);
 }
