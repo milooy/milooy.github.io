@@ -254,6 +254,185 @@ export const machine = createMachine<FunnelContext, AnyEventObject, FunnelTypeSt
 
 사실 좀 더 폴리싱 필요.. 근데 얼추 됨! ㅎㅎ
 
+### 방법3: 인접노드 이동만 Static하게 생성해두기 (feat. cond + event)
+
+#### 방법 2의 한계: 뒤로가기만 되고 앞으로가기는 안됨..
+
+앞으로가기를 구현하려고 봤더니 브라우저 히스토리가 그냥 stack + pop방식이 아니라는걸 인지함.
+
+예를 들어 a, b, c , 뒤로가기해서 b, 앞으로가기해서 a
+했을 때
+
+- stack이라면 히스토리가 [a, b, c, b, a]일테고
+- stack + pop이라면 히스토리가 [a]..일텐데 이건 말이 안됨. pop해버리면 앞으로가기 할수가 없음.
+
+그래서 브라우저 히스토리는 stack + pop없이 index로 계산해야한다.
+위 경우는 히스토리가 [a, b, c]이되 index가 a를 가리키고 있어야함 (그래야 앞으로가기시 b, c를 기억해서 이동할 수 있으니)
+
+앞으로가기를 위해 브라우저 히스토리와 동일하게 context에 stack + index를 구현해두는건 넘 빡세고 위험해보인다; single source of truth가 아니니께.
+
+#### 다시 생각해보자
+
+바텀업 말고 탑다운으로 out of box에서 다시 생각해보자.
+[a, b, c, b] 상황의 b페이지에서
+
+- 뒤로가기 하면 a
+- 앞으로가기하면 b로 이동해야 한다.
+
+문제는 `Router.beforePopState` 는 뒤로가기와 앞으로가기를 구분할 수 없다는거.
+둘 모두에서 불린다. history pop 이벤트핸들러의 리스너 함수니까.
+
+뒤로가기, 앞으로가기 구분 없이 다음 페이지를 알아내야한다.
+
+그런데... 생각해보니 브라우저 히스토리 스택이 이미 내 다음 행선지를 다 알고 있네?
+xstate내부에 history context를 따로 관리하지 말고
+브라우저 히스토리만 single source of truth로 관리하고
+xstate에선 앞으로가기/뒤로가기시 가용한 모든 이벤트를 뚫어두고
+얘가 다음 행선지를 안내하도록 해볼까?
+
+#### 히스토리 기반으로 from, to 알아내기
+
+일단 xstate를 떠나서 브라우저의 Router.beforePopState 이벤트로 뒤로가기, 앞으로가기시 현재페이지/이동할페이지 경로를 알아낸다.
+
+위에서 service.onTransition 으로 경로가 변할 때마다 router shallow push를 하고있었기 때문에 브라우저 히스토리 스택은 착실히 쌓이고 있었을 것이다.
+
+```js
+Router.beforePopState(prop => {
+  const { as } = prop
+  console.log({ to: decodeURI(as), from: decodeURI(Router.asPath) })
+  return true
+})
+```
+
+굿. 뒤로가기, 앞으로가기 해보니 from, to 가 잘 찍힌다.
+
+#### xstate 이벤트에 행선지 보내기
+
+```js
+Router.beforePopState(prop => {
+  const { as } = prop
+
+  const nextPageName = QS.parse(as)[stepQueryKey]
+  if (as !== Router.asPath) {
+    send("NAVIGATE", { navigateTarget: nextPageName })
+  }
+  return true
+})
+
+// xstate 머신
+machine = {
+  on: {
+    PUSH_HISTORY: {
+      actions: "pushHistory",
+    },
+    NAVIGATE: [
+      {
+        // B에서 A로 뒤로가기
+        // 현재페이지가 B고 히스토리 이벤트에서 넘겨준 타겟이 A라면 A로 이동해라
+        cond: (_context, event, meta) => {
+          const currentStateValueMatched = meta.state.value === "B"
+          const navigateTargetMatched = event.navigateTarget === "A"
+          return (
+            currentStateValueMatched === true && navigateTargetMatched === true
+          )
+        },
+        target: "A",
+      },
+      {
+        cond: (_context, event, meta) => {
+          // A에서 B로 앞으로가기
+          // 현재페이지가 A고 히스토리 이벤트에서 넘겨준 타겟이 B라면 B로 이동해라
+          const currentStateValueMatched = meta.state.value === "A"
+          const navigateTargetMatched = event.navigateTarget === "B"
+          return (
+            currentStateValueMatched === true && navigateTargetMatched === true
+          )
+        },
+        target: "B",
+      },
+    ],
+  },
+  states,
+}
+```
+
+generate 함수를 만들기 전에, 잘 되는지 static하게 테스트를 해본다.
+A ↔ B 사이를 앞으로 가기, 뒤로가기 할 수 있도록
+
+A에서 B로 이동하는 이벤트, B에서 A로 가는 이벤트를 뚫어준다.
+
+- 컨디션: 현재 머신상태가 b + 푸시타겟이 a라면: 타겟은 a
+- 컨디션: 현재 머신상태가 a + 푸시타겟이 b라면: 타겟은 b
+
+잘 동작한다! 감덩.
+
+이로 인해 브라우저 history와 xstate context history 가 꼬일 걱정도 덜었다
+
+#### 인접한 노드 사이를 이동할 수 있는 이벤트 generate 함수
+
+위에서 만들었던 함수를 조금만 고쳤다!
+
+```js
+function generateNavigateConditions(states: StatesConfig<any, any, any>) {
+  const conditions: TransitionsConfig<any, any> = []
+
+  Object.keys(states).map(stateValue => {
+    const stateNodeConfig = states[stateValue]
+    if (stateNodeConfig === undefined) {
+      return
+    }
+    const targetStepNodes = deepSearchItems(stateNodeConfig, "target")
+
+    targetStepNodes.map(({ target }) => {
+      conditions.push(
+        getCondition({ before: stateValue, after: target }),
+        getCondition({ before: target, after: stateValue })
+      )
+    })
+  })
+
+  return conditions
+}
+
+const getCondition = ({
+  before,
+  after,
+}: {
+  before: string,
+  after: string,
+}) => ({
+  cond: (_context: any, event: any, meta: any) => {
+    const currentStateValueMatched = meta.state.value === before
+    const navigateTargetMatched = event.navigateTarget === after
+    return currentStateValueMatched === true && navigateTargetMatched === true
+  },
+  target: after,
+  event: undefined, // 필요 없지만 타입을 맞추기 위해 넣음
+})
+
+// xstate 머신
+machine = {
+  on: {
+    PUSH_HISTORY: {
+      actions: "pushHistory",
+    },
+    NAVIGATE: generateNavigateConditions(states),
+  },
+  states,
+}
+```
+
+#### 요약
+
+1. 브라우저 내장 히스토리 스택을 네비게이션의 Single source of truth로 사용하자
+2. xstate는 히스토리에 대해 1도 모름. 사용부에서 "XX 페이지로 이동해라!"라고 하면 이동할 뿐.
+3. 브라우저의 popState이벤트를 통해 xstate에 "나는 지금 B페이지야. A페이지로 이동해"라고 알려준다.
+4. xstate는 해당 이벤트를 듣고, 현재 B페이지일때(state.value == 'B') 이벤트 인자가 A페이지라는(event. navigateTarget == 'A') 조건을 찾는다. 해당 조건은 xstate state target을 'A'로 전이해준다.
+
+- (이를 위해 앞으로가기, 뒤로가기를 통해 이동할 수 있는 모든 조건을 xstate에 정적으로 생성해두자)
+
+5. 이로 인해 브라우저 상태도 A, xstate 상태도 A가 된다!
+
 <!-- - 이렇게 하려면 step 이동시마다 history를 쌓아야 한다
   - 머신 밖에서 동적으로 쌓기
     - onTransition에서 `send('PUSH_HISTORY', {currentStep: state.value})` 하면 이 이벤트가 상태 전이를 일으키지 않더라도 다시 onTransition을 부르나봄... 그래서 무한호출
