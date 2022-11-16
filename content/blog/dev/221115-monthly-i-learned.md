@@ -5,6 +5,36 @@ date: "2022-11-15"
 category: dev
 ---
 
+## 11/16
+
+### Next 13
+
+- 새로 생긴 /app 디렉토리
+
+  - 라우팅용으로 /pages 폴더 분리시키지 않아도 되어 관련 코드들 응집도 높아짐
+  - layout: 공통 UI 공유, 리렌더링 방지, 상태 유지
+  - 서버 컴포넌트, 스트리밍
+
+- 터보팩 도입
+
+  - 러스트로 만든 모듈 번들러. 웹팩보다 700배 빠르고 비트보다 10배 빠름
+
+- next/image, next/font
+
+  - width, height 안넘겨도 레이아웃쉬프팅 안되도록
+  - 폰트 자동 옵티마이즈, 구글폰트 내장
+
+- next/link
+
+  - <a> 안넣어도 됨. 알아서 넣어줌.
+
+- 오픈그래프 이미지 생성
+
+  - 다이나믹 공유이미지 쉽게 만들 수 있는 @vercel/og 라이브러리
+
+- 데이터 페칭
+  - getServerSideProps, getStaticProps 등 안 써도 되고 next에서 확장한 fetch Web API 쓰면 된다! (getServersideProps → fetch(URL, { cache: 'no-store' });)
+
 ## 11/15
 
 ### (번역) 블로그 답변: React 렌더링 동작에 대한 (거의) 완벽한 가이드
