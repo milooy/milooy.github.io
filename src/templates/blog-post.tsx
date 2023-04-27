@@ -1,11 +1,11 @@
 import * as React from "react"
 import { Link, graphql } from "gatsby"
-import { Disqus } from "gatsby-plugin-disqus"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import styled from "styled-components"
+import Comments from "../components/Comments"
 
 interface Props {
   data: any // TODO: 쉽게 타이핑하는법 알아내기
@@ -42,13 +42,7 @@ const BlogPostTemplate = ({ data, location }: Props) => {
           <Bio />
         </footer>
       </article>
-      <Disqus
-        config={{
-          url: location.href,
-          identifier: post.id,
-          title: post.frontmatter.title,
-        }}
-      />
+      <Comments />
       <nav className="blog-post-nav">
         <ul
           style={{

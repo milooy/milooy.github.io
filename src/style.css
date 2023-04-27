@@ -104,6 +104,10 @@ body {
   background: var(--color-background-2);
 }
 
+pre, code {
+  font-family: "Liberation Mono", serif !important;
+}
+
 footer {
   padding: var(--spacing-6) var(--spacing-0);
 }

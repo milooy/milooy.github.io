@@ -44,7 +44,8 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.24",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "prism-theme-night-owl": "^1.4.0"
   },
   "homepage": "https://milooy.github.io",
   "keywords": [
