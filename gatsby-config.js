@@ -3,7 +3,7 @@ module.exports = {
     title: `유림로그`,
     author: {
       name: `진유림`,
-      summary: `테니스치다 손목 삔 개발자`,
+      summary: `테니스치다 손목 삔, 풋살하다 인대 나간 개발자`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://gatsbystarterblogsource.gatsbyjs.io/`,
