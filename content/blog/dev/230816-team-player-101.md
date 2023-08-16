@@ -5,6 +5,8 @@ date: "2023-08-15"
 category: dev
 ---
 
+![썸네일](https://github.com/milooy/milooy.github.io/assets/3839771/2f5f48e4-22bb-43b5-84cc-b44ba4b79f7a)
+
 오랜만의 비기술 발표네요. 준비하면서 저를 많이 되돌아보게 되었고, 덕분에 많이 성장했습니다.
 역시 발표는 짱이에요.
 [INFCON 2023](https://www.inflearn.com/conf/infcon-2023/session-detail?id=779)에서 한 발표를 스크립트와 함께 공유합니다.
@@ -13,7 +15,6 @@ category: dev
 
 ## 팀 플레이어 101
 
-![INFCON2023_팀플레이어101-v3 001](https://github.com/milooy/milooy.github.io/assets/3839771/26b01816-1c6e-40aa-b09e-fd8d73d9cef0)
 ![INFCON2023_팀플레이어101-v3 002](https://github.com/milooy/milooy.github.io/assets/3839771/88d4b4e6-909f-4e3a-8fb9-19a8954a0061)
 저는 레진코믹스, 핑크퐁, 제플, 토스 등 다양한 규모의 스타트업에서 개발을 했는데요, 다양한 성향의 사람들을 만나며
 함께 일하고 싶은 사람은 어떤 성향이지? 어떤 사람이 팀에 임팩트를 끼치지? 란 고민을 많이 했어요.
