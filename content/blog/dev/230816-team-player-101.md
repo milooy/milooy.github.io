@@ -1,11 +1,11 @@
 ---
 title: 팀 플레이어 101
-description: 개인 개발자(IC)를 넘어, 팀을 성장시키는 개발자 되기
+description: 개인 개발자(IC)로부터 팀을 성장시키는 개발자 되기
 date: "2023-08-15"
 category: dev
 ---
 
-![썸네일](https://github.com/milooy/milooy.github.io/assets/3839771/2f5f48e4-22bb-43b5-84cc-b44ba4b79f7a)
+![썸네일](https://github.com/milooy/milooy.github.io/assets/3839771/6c3c50c2-2481-479c-997e-3567fe91e896)
 
 오랜만의 비기술 발표네요. 준비하면서 저를 많이 되돌아보게 되었고, 덕분에 많이 성장했습니다.
 역시 발표는 짱이에요.
