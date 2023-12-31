@@ -183,7 +183,7 @@ https://milooy.github.io/books/2023-books/
 술마시고 랄랄라 집오다가 빙판길에서 안면을 갈았다.
 메디폼 붙이면 괜찮을 줄 알았는데... 아니더라고.
 
-![KakaoTalk_Photo_2023-12-31-14-15-46](https://github.com/milooy/milooy.github.io/assets/3839771/f0d54141-6d6c-439f-a0e6-31c01fdafd50)
+<img width="649" alt="image" src="https://github.com/milooy/milooy.github.io/assets/3839771/758626b1-f3c7-4e2a-b69d-697578bd0523">
 
 그 때의 사진이다.
 피부과 선생님이 '흉터 남을거예요. 다 나으면 레이저 하세요' 했다.
@@ -192,7 +192,7 @@ https://milooy.github.io/books/2023-books/
 나는 거울 가끔만 보는데... 반려맨은 나 매일 볼때마다 얼마나 속터졌을까
 미안하다 ㅜㅜ
 
-![KakaoTalk_Photo_2023-12-31-14-17-12](https://github.com/milooy/milooy.github.io/assets/3839771/421e54d3-3629-4f39-bd00-841d42a2e6aa)
+<img width="646" alt="image" src="https://github.com/milooy/milooy.github.io/assets/3839771/e75ab68f-ae08-4a30-a1d5-9ea806d18c5e">
 
 
 이틀에 한번씩 피부과 가서 드레싱하고 흉터연고 바르니, 지금은 눈여겨 보지 않으면 아예 안보일 정도로 다 나았다! 한 달 걸렸다. 흉터연고는 두 달 더 바르고. 인체의 신비다...
@@ -216,6 +216,7 @@ https://milooy.github.io/books/2023-books/
 작년에도 그러더니 올해도 염증수치 Max.
 
 난 근데 요렇게 수치 높게 나와도 "흠~ 좀 아프긴 해도 참을만한데?" 한다.
+
 난 강하다.
 
 면역력 떨어지면 생기는 병
