@@ -6,7 +6,8 @@ date: "2023-12-31"
 ---
 
 총 85권
-![KakaoTalk_Photo_2023-12-31-14-02-43](https://github.com/milooy/milooy.github.io/assets/3839771/6659b1a5-febf-4c09-a7e4-868faa9b1d38)
+![KakaoTalk_Photo_2023-12-31-15-18-08](https://github.com/milooy/milooy.github.io/assets/3839771/e95884fe-8b19-4ff0-8bc6-e2cdbed60c8f)
+
 
 
 ## 4점~5점: 나를 바꿔준 책
