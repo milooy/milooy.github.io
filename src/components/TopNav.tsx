@@ -25,7 +25,12 @@ const TopNav = () => {
       </nav>
       <Categories>
         <ul
-          style={{ listStyle: "none", display: "flex", margin: 0, gap: "3rem" }}
+          style={{
+            listStyle: "none",
+            display: "flex",
+            margin: "0",
+            flexFlow: "wrap",
+          }}
         >
           {CATEGORIES.slice(0, CATEGORIES.length - 1).map(category => (
             <StyledLink to={category.to}>
@@ -72,6 +77,10 @@ const CategoryItem = styled.li`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: var(--color-text);
+  margin-right: 3rem;
+  &:last-child {
+    margin-right: 0;
+  }
 `
 
 export default TopNav
