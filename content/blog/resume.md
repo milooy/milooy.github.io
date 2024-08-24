@@ -1,17 +1,30 @@
 ---
 title: 진유림 (Yurim Jalynne Jin)
-date: "2022-03-13"
-description: "나는"
-category: intro
+date: "2024-08-24"
+description: "resume"
+category: resume
 ---
 
 > Product oriented front-end engineer
+
+프론트엔드 개발자 진유림입니다.<br/>
+
+- 작은 목적조직에서 프론트엔드 개발자 1인으로서 민첩하게 움직인 경험(2020.05 <a href="https://blog.toss.im/article/toss-insurance-partner" target="_blank">토스보험파트너</a>),
+- 중간 규모 조직에서 프론트엔드 개발자 6인과 함께 하나의 도메인을 일궈나간 경험(2022.04 <a href="https://tossmobile.co.kr/" target="_blank">토스모바일</a>),
+- 큰 규모 조직에서 여러 B2B 도메인이 하나의 앱처럼 유기적으로 움직일 수 있는 플랫폼을 다진 경험(2024.05 <a href="https://business.toss.im/" target="_blank">토스비즈니스</a>)
+
+이 있습니다.
+
+팀의 팀으로서 일궈내는 성취와, 팀원이 팀에 속함으로서 얻는 행복에 관심있습니다.<br/>
+어떻게든 즐겁게 일하기 위해 머리를 많이 굴립니다.
+
+현재 비바리퍼블리카(토스)에서 Frontend lead로 일하고 있습니다.
 
 - jayjinjay@gmail.com
 - https://github.com/milooy
 - https://twitter.com/jayjinjay
 
-## Professional Experiences
+## 경력
 
 ### Viva Republica (Toss), Front End Engineer 2020.03 - Present
 
@@ -41,7 +54,7 @@ category: intro
 
 NHN NEXT (1기) - 컴퓨터 공학 2013.03 - 2016.02
 
-## Sharing and Presentations
+## 외부 활동
 
 - 개발 작업물 모음: https://milooy.wordpress.com/2019/12/22/works/
 - 지식 공유 : 블로그, Today I Learned
@@ -52,3 +65,5 @@ NHN NEXT (1기) - 컴퓨터 공학 2013.03 - 2016.02
 
 - Korean(Native)
 - English(Professional)
+  1. Zepl 회사에서 다국적 팀원들과 2년간 영어로 일한 경험이 있습니다.
+  2. Facebook Developer Circle활동을 하며 다국적 매니저들과 영어로 커뮤니티 매니징을 한 경험이 있습니다.

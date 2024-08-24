@@ -1,5 +1,5 @@
 export const CATEGORIES = [
-  { to: "/intro", label: "resume" },
+  { to: "/resume", label: "resume" },
   { to: "/category/dev", label: "dev" },
   { to: "/category/life", label: "life" },
   { to: "/category/book", label: "read" },

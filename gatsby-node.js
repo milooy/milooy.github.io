@@ -1,7 +1,7 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const CATEGORIES = [
-  { value: "intro", label: "resume" },
+  { value: "resume", label: "resume" },
   { value: "dev", label: "dev" },
   { value: "life", label: "life" },
   { value: "book", label: "read" },
