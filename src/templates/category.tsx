@@ -25,7 +25,7 @@ const CategoryPage = ({
   return (
     <Layout location={location} title={siteTitle}>
       <Seo title="All posts" />
-      <ol style={{ listStyle: `none` }}>
+      <ol style={{ listStyle: `none`, margin: 0 }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 

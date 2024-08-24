@@ -2,7 +2,7 @@
 title: 오 프리지아 내게 줘요
 date: "2022-03-13"
 description: 코로나를 함께한 친구
-category: art
+category: media
 ---
 
 ![freesia](https://user-images.githubusercontent.com/3839771/158061227-e1776286-213f-4047-a342-062cfb008ca8.jpg)

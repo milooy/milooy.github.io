@@ -21,7 +21,7 @@ const RandomProfileImage = () => {
       style={{
         height: 80,
         width: "inherit",
-        margin: "8px 8px 0 0",
+        margin: "8px 2rem 0px 0px",
       }}
       src={randomImage}
       alt="Profile"

@@ -7,9 +7,8 @@ import styled from "styled-components"
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
+import { Link } from "gatsby"
 import * as React from "react"
-import { useStaticQuery, graphql, Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
 import { CATEGORIES } from "../utils/constants"
 import RandomImage from "./RandomProfileImage"
 
@@ -18,24 +17,26 @@ const TopNav = () => {
     <>
       <nav style={navStyle}>
         <Link to="/" style={{ textDecoration: "none" }}>
-          <h1 style={{ margin: 0 }}>Today yurim felt</h1>
+          <h1 style={{ margin: 0, fontSize: "var(--fontSize-7)" }}>
+            Today yurim felt
+          </h1>
         </Link>
         <RandomImage />
-        {/* <img
-          className="main-heading"
-          // formats={["auto", "webp", "avif"]}
-          src={randomImageSrc}
-          placeholder="none"
-          width={110}
-          alt="Profile picture"
-        /> */}
       </nav>
       <Categories>
-        {CATEGORIES.map(category => (
-          <StyledLink to={category.to}>
-            <CategoryItem>{category.label}</CategoryItem>
-          </StyledLink>
-        ))}
+        <ul
+          style={{ listStyle: "none", display: "flex", margin: 0, gap: "3rem" }}
+        >
+          {CATEGORIES.slice(0, CATEGORIES.length - 1).map(category => (
+            <StyledLink to={category.to}>
+              <CategoryItem>{category.label}</CategoryItem>
+            </StyledLink>
+          ))}
+        </ul>
+
+        <StyledLink to={CATEGORIES[CATEGORIES.length - 1].to}>
+          <CategoryItem>{CATEGORIES[CATEGORIES.length - 1].label}</CategoryItem>
+        </StyledLink>
       </Categories>
     </>
   )
@@ -44,29 +45,33 @@ const TopNav = () => {
 const navStyle = {
   display: "flex",
   justifyContent: "space-between",
-  borderBottom: "1px solid var(--color-border)",
   background: "var(--color-background-3)",
   alignItems: "center",
   paddingLeft: 24,
 }
 
 const Categories = styled.ul`
-  background: var(--color-background);
+  background: #f2f2f2;
   display: flex;
   list-style: none;
-  border-bottom: 1px solid var(--color-border);
-  padding-left: 24px;
   flex-wrap: wrap;
-  margin: 0;
-  padding-top: 16px;
+  border-radius: 8px;
+  box-shadow: rgb(50 50 93 / 7%) 0px 13px 27px -5px,
+    rgb(0 0 0 / 18%) 0px 8px 16px -8px;
+  padding: 1rem 1.5rem;
+  margin: 0 1.2rem 1.2rem;
+  background: linear-gradient(to right, #c6ffdd82, #fbd7868a, #f7797d4f);
+  justify-content: space-between;
+  font-style: italic;
 `
 
-const CategoryItem = styled.li``
+const CategoryItem = styled.li`
+  margin: 0;
+`
 
 const StyledLink = styled(Link)`
-  margin-right: 3rem;
   text-decoration: none;
-  color: black;
+  color: var(--color-text);
 `
 
 export default TopNav
