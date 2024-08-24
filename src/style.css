@@ -90,6 +90,7 @@
 :before {
   box-sizing: border-box;
   word-wrap: break-word;
+  word-break: keep-all;
 }
 
 html {

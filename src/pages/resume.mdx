@@ -5,18 +5,33 @@ description: "resume"
 category: resume
 ---
 
+import Foo from "../components/layout"
+
+export default function Layout({ children }) {
+  return (
+    <Foo location={""}>
+      <div style={{ fontWeight: "bold" }}>RESUME</div>
+      <h1 style={{ marginTop: 0 }}>진유림 (Yurim Jalynne Jin)</h1>
+      {children}
+    </Foo>
+  )
+}
+
+import CompanyExperience from "../components/CompanyExperience"
+import SmallItalic from "../components/SmallItalic"
+
 > Product oriented front-end engineer
 
 프론트엔드 개발자 진유림입니다.<br/>
 
-- 작은 목적조직에서 프론트엔드 개발자 1인으로서 민첩하게 움직인 경험(2020.05 <a href="https://blog.toss.im/article/toss-insurance-partner" target="_blank">토스보험파트너</a>),
-- 중간 규모 조직에서 프론트엔드 개발자 6인과 함께 하나의 도메인을 일궈나간 경험(2022.04 <a href="https://tossmobile.co.kr/" target="_blank">토스모바일</a>),
-- 큰 규모 조직에서 여러 B2B 도메인이 하나의 앱처럼 유기적으로 움직일 수 있는 플랫폼을 다진 경험(2024.05 <a href="https://business.toss.im/" target="_blank">토스비즈니스</a>)
+작은 목적조직에서 1인의 프론트엔드 개발자로서 민첩하게 움직인 경험 <SmallItalic>(2020.05 <a href="https://blog.toss.im/article/toss-insurance-partner" target="_blank">토스보험파트너</a>)</SmallItalic>,<br/>
+중간 규모 조직에서 6인의 프론트엔드 그룹 리드로서 하나의 도메인을 일궈나간 경험<SmallItalic>(2022.04 <a href="https://tossmobile.co.kr/" target="_blank">토스모바일</a>)</SmallItalic>,<br/>
+큰 규모 조직에서 여러 B2B 도메인이 하나의 앱처럼 유기적으로 움직일 수 있는 플랫폼을 다진 경험<SmallItalic>(2024.05 <a href="https://business.toss.im/" target="_blank">토스비즈니스</a>)</SmallItalic>이 있습니다.
 
-이 있습니다.
+팀으로서 일궈내는 성취와, 팀원으로서 얻는 행복에 관심이 있습니다.<br/>
+이를 위해 코칭을 공부하고, 1:1미팅 포맷을 지속적으로 개선해 나가며, 사내 프론트엔드 개발자들의 성장을 지원하는 다양한 프로그램을 고안합니다<SmallItalic>(사내/사외 기술토론 커뮤니티 - 프론트엔드다이빙클럽, 역량 지표, 코드스멜 위키 오픈소스)</SmallItalic>.
 
-팀의 팀으로서 일궈내는 성취와, 팀원이 팀에 속함으로서 얻는 행복에 관심있습니다.<br/>
-어떻게든 즐겁게 일하기 위해 머리를 많이 굴립니다.
+어떻게든 즐겁게 일하기 위해 머리를 굴립니다.
 
 현재 비바리퍼블리카(토스)에서 Frontend lead로 일하고 있습니다.
 
@@ -25,6 +40,24 @@ category: resume
 - https://twitter.com/jayjinjay
 
 ## 경력
+
+<CompanyExperience
+  logoImgSrc={
+    "https://media.licdn.com/dms/image/v2/D560BAQHrABnQK3_bBw/company-logo_100_100/company-logo_100_100/0/1662339004690/viva_republica_logo?e=1732752000&v=beta&t=mm-Qza0B0W4TEGJ2hSSJL0qQO_G7ycOTWcS9jY99adw"
+  }
+  name="Viva Republica (Toss)"
+  duration="4년 6개월"
+  positions={[
+    {
+      title: "Frontend Lead",
+      date: "2023.07 - Present",
+    },
+    {
+      title: "Frontend Engineer",
+      date: "2020.03 - 2023-06",
+    },
+  ]}
+/>
 
 ### Viva Republica (Toss), Front End Engineer 2020.03 - Present
 
