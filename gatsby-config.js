@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `유림로그`,
+    title: `Today yurim felt`,
     author: {
       name: `진유림`,
       summary: `테니스치다 손목 삔, 풋살하다 인대 나간 개발자`,
@@ -130,7 +130,7 @@ module.exports = {
         // https://css-tricks.com/meta-theme-color-and-trickery/
         // theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/icon.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-react-helmet`,

@@ -11,6 +11,7 @@ import * as React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 import { CATEGORIES } from "../utils/constants"
+import RandomImage from "./RandomProfileImage"
 
 const TopNav = () => {
   return (
@@ -19,14 +20,15 @@ const TopNav = () => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <h1 style={{ margin: 0 }}>Today yurim felt</h1>
         </Link>
-        <StaticImage
+        <RandomImage />
+        {/* <img
           className="main-heading"
-          formats={["auto", "webp", "avif"]}
-          src="../images/profile-pic.png"
+          // formats={["auto", "webp", "avif"]}
+          src={randomImageSrc}
           placeholder="none"
-          height={110}
+          width={110}
           alt="Profile picture"
-        />
+        /> */}
       </nav>
       <Categories>
         {CATEGORIES.map(category => (
@@ -55,8 +57,7 @@ const Categories = styled.ul`
   border-bottom: 1px solid var(--color-border);
   padding-left: 24px;
   flex-wrap: wrap;
-  margin-bottom: 0;
-  margin-top: 0;
+  margin: 0;
   padding-top: 16px;
 `
 

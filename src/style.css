@@ -1,5 +1,6 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Gothic:wght@400;700;800&display=swap"); */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;400;700;900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;400;700;900&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 /* CSS Custom Properties Definitions */
 
 :root {
@@ -37,9 +38,11 @@
   --fontFamily-serif: "Nanum Gothic", sans-serif; */
   /* --fontFamily-sans: "Gowun Batang", serif;
   --fontFamily-serif: "Gowun Batang", serif; */
-  --fontFamily-sans: "Noto Serif KR", serif;
+  /* --fontFamily-sans: "Noto Serif KR", serif;
+  --fontFamily-serif: "Noto Serif KR", serif; */
+  --fontFamily-sans: "Inter", sans-serif;
   --fontFamily-serif: "Noto Serif KR", serif;
-  --font-body: var(--fontFamily-serif);
+  --font-body: var(--fontFamily-sans);
   --font-heading: var(--fontFamily-sans);
   --fontWeight-normal: 400;
   --fontWeight-medium: 500;
@@ -123,7 +126,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  margin-top: var(--spacing-12);
+  margin-top: var(--spacing-16);
   margin-bottom: var(--spacing-6);
   /* line-height: var(--lineHeight-tight); */
   letter-spacing: -0.025em;
@@ -184,19 +187,19 @@ h6 > a {
 /* Prose */
 
 p {
-  line-height: var(--lineHeight-relaxed);
+  /* line-height: var(--lineHeight-relaxed); */
   --baseline-multiplier: 0.179;
   --x-height-multiplier: 0.35;
-  margin: var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);
+  margin: var(--spacing-0) var(--spacing-0) var(--spacing-5) var(--spacing-0);
   padding: var(--spacing-0);
 }
 
 ul,
 ol {
-  margin-left: var(--spacing-0);
+  margin-left: var(--spacing-8);
   margin-right: var(--spacing-0);
   padding: var(--spacing-0);
-  margin-bottom: var(--spacing-8);
+  margin-bottom: var(--spacing-5);
   list-style-position: outside;
   list-style-image: none;
 }
@@ -204,11 +207,11 @@ ol {
 ul li,
 ol li {
   padding-left: var(--spacing-0);
-  margin-bottom: calc(var(--spacing-8) / 2);
+  margin-bottom: calc(var(--spacing-4) / 2);
 }
 
 li > p {
-  margin-bottom: calc(var(--spacing-8) / 2);
+  margin-bottom: calc(var(--spacing-4) / 2);
 }
 
 li *:last-child {
@@ -329,7 +332,7 @@ a:focus {
 
 .blog-post header h1 {
   margin: var(--spacing-0) var(--spacing-0) var(--spacing-4) var(--spacing-0);
-  font-family: var(--fontFamily-serif);
+  font-family: var(--fontFamily-sans);
   font-size: var(--fontSize-7);
   font-weight: var(--fontWeight-extrabold);
 }
