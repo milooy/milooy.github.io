@@ -17,7 +17,10 @@ const CompanyExperience = ({
 }) => {
   return (
     <Flex gap={"16px"}>
-      <img style={{ width: 40, height: "fit-content" }} src={logoImgSrc}></img>
+      <img
+        style={{ width: 40, height: "fit-content", borderRadius: 7 }}
+        src={logoImgSrc}
+      ></img>
       <div>
         <Flex align="center">
           <a

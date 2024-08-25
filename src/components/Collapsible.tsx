@@ -2,7 +2,6 @@ import React, { ReactNode, useState } from "react"
 import styled from "styled-components"
 import ChevronDown from "../images/chevron-down.png"
 import ChevronUp from "../images/chevron-up.png"
-// import { MDXRenderer } from "@mdx-js/react"
 
 const Collapsible = ({
   title,
@@ -31,12 +30,11 @@ const Collapsible = ({
           />
         )}
       </Title>
-      {opened && (
-        <Contents>
+        <Contents opened={opened}>
+          <Divider />
           {children}
-          {/* <MDXRenderer>{children}</MDXRenderer> */}
         </Contents>
-      )}
+      
     </Wrapper>
   )
 }
@@ -52,7 +50,7 @@ const Title = styled.div`
 `
 
 const Wrapper = styled.div`
-  background: var(--color-background-3);
+  background: #f4f3f2a3;
   border-radius: 6px;
   padding: 8px 12px;
   margin-bottom: 0.5rem;
@@ -62,11 +60,16 @@ const Wrapper = styled.div`
   }
 `
 
-const Contents = styled.div`
+const Divider = styled.div`
   border-top: 2px solid #d7d7d796;
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
+  margin: 0.5rem 0;
+`
+
+const Contents = styled.div<{opened: boolean}>`
   color: #6f7172;
+  overflow: auto;
+  max-height: ${props => props.opened ? '100vh' : 0};
+  transition: max-height 0.2s;
 `
 
 export default Collapsible
