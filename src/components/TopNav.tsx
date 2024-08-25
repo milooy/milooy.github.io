@@ -50,13 +50,11 @@ const TopNav = () => {
 const navStyle = {
   display: "flex",
   justifyContent: "space-between",
-  background: "var(--color-background-3)",
   alignItems: "center",
   paddingLeft: 24,
 }
 
 const Categories = styled.ul`
-  background: #f2f2f2;
   display: flex;
   list-style: none;
   flex-wrap: wrap;
