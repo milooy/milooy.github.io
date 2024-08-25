@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from "react"
 import styled from "styled-components"
 import ChevronDown from "../images/chevron-down.png"
 import ChevronUp from "../images/chevron-up.png"
+// import { MDXRenderer } from "@mdx-js/react"
 
 const Collapsible = ({
   title,
@@ -30,7 +31,12 @@ const Collapsible = ({
           />
         )}
       </Title>
-      {opened && <Contents>{children}</Contents>}
+      {opened && (
+        <Contents>
+          {children}
+          {/* <MDXRenderer>{children}</MDXRenderer> */}
+        </Contents>
+      )}
     </Wrapper>
   )
 }
