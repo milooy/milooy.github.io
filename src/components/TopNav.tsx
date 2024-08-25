@@ -33,7 +33,7 @@ const TopNav = () => {
           }}
         >
           {CATEGORIES.slice(0, CATEGORIES.length - 1).map(category => (
-            <StyledLink to={category.to}>
+            <StyledLink key={category.to} to={category.to}>
               <CategoryItem>{category.label}</CategoryItem>
             </StyledLink>
           ))}
