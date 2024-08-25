@@ -73,6 +73,8 @@ jobs:
       #     key: ${{ runner.os }}-gatsby-build-${{ hashFiles('public') }}
       #     restore-keys: |
       #       ${{ runner.os }}-gatsby-build-
+      - name: Clean cache
+        run: yarn cache clean
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Gatsby
