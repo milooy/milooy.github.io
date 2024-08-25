@@ -8,20 +8,29 @@ const Collapsible = ({
   children,
 }: {
   title: ReactNode
-  children: ReactNode
+  children?: ReactNode
 }) => {
   const [opened, setOpened] = useState(false)
   return (
     <Wrapper>
-      <Title onClick={() => setOpened(!opened)}>
+      <Title
+        onClick={() => {
+          if (children == null) {
+            return
+          }
+          setOpened(!opened)
+        }}
+      >
         {title}
-        <img
-          style={{ width: 20, height: "fit-content", opacity: 0.3 }}
-          src={opened ? ChevronUp : ChevronDown}
-          alt="chevron"
-        />
+        {children && (
+          <img
+            style={{ width: 20, height: "fit-content", opacity: 0.3 }}
+            src={opened ? ChevronUp : ChevronDown}
+            alt="chevron"
+          />
+        )}
       </Title>
-      {opened && children}
+      {opened && <Contents>{children}</Contents>}
     </Wrapper>
   )
 }
@@ -30,7 +39,6 @@ const Title = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: var(--fontWeight-semibold);
   cursor: pointer;
   &:hover {
     color: var(--color-primary);
@@ -40,11 +48,19 @@ const Title = styled.div`
 const Wrapper = styled.div`
   background: var(--color-background-3);
   border-radius: 6px;
-  padding: 10px;
-  margin-bottom: 1rem;
+  padding: 8px 12px;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
   &:last-child {
     margin-bottom: 0;
   }
+`
+
+const Contents = styled.div`
+  border-top: 2px solid #d7d7d796;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  color: #6f7172;
 `
 
 export default Collapsible
