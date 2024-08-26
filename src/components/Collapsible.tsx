@@ -30,11 +30,11 @@ const Collapsible = ({
           />
         )}
       </Title>
-        <Contents opened={opened}>
-          <Divider />
-          {children}
-        </Contents>
-      
+      <Contents opened={opened}>
+        <Divider />
+        {children}
+        <div style={{ marginTop: 20 }} />
+      </Contents>
     </Wrapper>
   )
 }
@@ -58,6 +58,13 @@ const Wrapper = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
+  ul {
+    margin: 0 0 0 1rem;
+
+    li {
+      margin-bottom: 0;
+    }
+  }
 `
 
 const Divider = styled.div`
@@ -65,10 +72,10 @@ const Divider = styled.div`
   margin: 0.5rem 0;
 `
 
-const Contents = styled.div<{opened: boolean}>`
+const Contents = styled.div<{ opened: boolean }>`
   color: #6f7172;
   overflow: auto;
-  max-height: ${props => props.opened ? '100vh' : 0};
+  max-height: ${props => (props.opened ? "100vh" : 0)};
   transition: max-height 0.2s;
 `
 
