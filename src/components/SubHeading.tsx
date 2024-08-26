@@ -6,4 +6,9 @@ const SubHeading = styled.h3`
   margin-top: 1rem;
 `
 
+export const SubHeading2 = styled.h4`
+  font-size: 1rem;
+  margin: 1rem 0 0.3rem;
+`
+
 export default SubHeading
