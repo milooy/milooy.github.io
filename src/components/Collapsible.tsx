@@ -32,7 +32,7 @@ const Collapsible = ({
               <img
                 style={{
                   width: 20,
-                  height: "fit-content",
+                  height: 20,
                   opacity: 0.3,
                   verticalAlign: "middle",
                 }}
@@ -45,7 +45,7 @@ const Collapsible = ({
             <img
               style={{
                 width: 20,
-                height: "fit-content",
+                height: 20,
                 opacity: 0.3,
                 verticalAlign: "middle",
               }}
