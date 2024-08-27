@@ -2,13 +2,17 @@ import React, { ReactNode, useState } from "react"
 import styled from "styled-components"
 import ChevronDown from "../images/chevron-down.png"
 import ChevronUp from "../images/chevron-up.png"
+import Link from "../images/link.png"
+import { Flex } from "./Flex"
 
 const Collapsible = ({
   title,
   children,
+  link,
 }: {
   title: ReactNode
   children?: ReactNode
+  link?: string
 }) => {
   const [opened, setOpened] = useState(false)
   return (
@@ -22,13 +26,34 @@ const Collapsible = ({
         }}
       >
         {title}
-        {children && (
-          <img
-            style={{ width: 20, height: "fit-content", opacity: 0.3 }}
-            src={opened ? ChevronUp : ChevronDown}
-            alt="chevron"
-          />
-        )}
+        <Flex align="center">
+          {link && (
+            <a href={link} target="_blank">
+              <img
+                style={{
+                  width: 20,
+                  height: "fit-content",
+                  opacity: 0.3,
+                  verticalAlign: "middle",
+                }}
+                src={Link}
+                alt="link"
+              />
+            </a>
+          )}
+          {children && (
+            <img
+              style={{
+                width: 20,
+                height: "fit-content",
+                opacity: 0.3,
+                verticalAlign: "middle",
+              }}
+              src={opened ? ChevronUp : ChevronDown}
+              alt="chevron"
+            />
+          )}
+        </Flex>
       </Title>
       <Contents opened={opened}>
         <Divider />
