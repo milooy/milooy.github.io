@@ -27,8 +27,8 @@ const Collapsible = ({
           setOpened(!opened)
         }}
       >
-        <Flex align="center">
-          {tag != null && <Tag style={{ marginRight: 5 }}>{tag}</Tag>}
+        <Flex align="center" style={{ textAlign: 'start' }}>
+          {tag != null && <Tag style={{ marginRight: 5, flexShrink: 0 }}>{tag}</Tag>}
           {title}
         </Flex>
         <Flex align="center">
@@ -82,9 +82,9 @@ const Title = styled.div`
 const Tag = styled.div`
   display: flex;
   align-items: center;
-  background-color: #fff5df;
+  background-color: #e6e6e6;
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 600;
   padding: 3px 7px;
   border-radius: 10px;
   color: #707070;
