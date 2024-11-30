@@ -21,6 +21,7 @@ import CompanyExperience from "../components/CompanyExperience"
 import SmallItalic from "../components/SmallItalic"
 import SubHeading from "../components/SubHeading"
 import Collapsible from "../components/Collapsible"
+import CollapsibleHeading from "../components/CollapsibleHeading"
 import Gallary from "../components/Gallary"
 import { SubHeading2 } from "../components/SubHeading"
 
@@ -30,9 +31,7 @@ import 퍼블릭스피킹Content from "./resume-content/퍼블릭스피킹.mdx"
 import 장애감소Content from "./resume-content/장애감소.mdx"
 import ZeplContent from "./resume-content/zepl.mdx"
 import ShootContent from "./resume-content/shoot.mdx"
-import 토스비즈니스Content from "./resume-content/토스비즈니스.mdx"
-import 토스모바일Content from "./resume-content/토스모바일.mdx"
-import 토스보험Content from "./resume-content/토스보험.mdx"
+import 토스서비스개발Content from "./resume-content/토스서비스개발.mdx"
 
 > Product oriented front-end engineer
 
@@ -135,26 +134,35 @@ import 토스보험Content from "./resume-content/토스보험.mdx"
 ## 프로젝트
 
 <SubHeading>Viva Republica (Toss)</SubHeading>
-<Collapsible title="[기술 리더십] 여러 팀을 넘나들며 조율하는 도메인의 기술적 리드">
+<Collapsible
+  tag="기술 리더십"
+  title="여러 팀을 넘나들며 조율하는 도메인의 기술적 리드"
+>
   <도메인리드Content />
 </Collapsible>
-<Collapsible title="[팀 성장] 부드러운 리더십을 통한 구성원 발전 및 회사 목표와의 조화">
+<Collapsible
+  tag="팀 성장"
+  title="부드러운 리더십을 통한 구성원 발전 및 회사 목표와의 조화"
+>
   <FLeadContent />
 </Collapsible>
-<Collapsible title="[채용 및 브랜딩] 채용 및 브랜딩을 위한 퍼블릭 스피킹에서 가장 먼저 찾는 개발자">
+<Collapsible
+  tag="채용 및 브랜딩"
+  title="채용 및 브랜딩을 위한 퍼블릭 스피킹에서 가장 먼저 찾는 개발자"
+>
   <퍼블릭스피킹Content />
 </Collapsible>
-<Collapsible title="[문제 해결] 장애의 근본적인 차단과 CS 감소를 위한 액션 플랜">
+<Collapsible
+  tag="문제 해결"
+  title="장애의 근본적인 차단과 CS 감소를 위한 액션 플랜"
+>
   <장애감소Content />
 </Collapsible>
-<Collapsible title="[서비스 개발] 토스비즈니스 플랫폼 구축">
-  <토스비즈니스Content />
-</Collapsible>
-<Collapsible title="[서비스 개발] 토스모바일 서비스 구축 및 유지보수">
-  <토스모바일Content />
-</Collapsible>
-<Collapsible title="[서비스 개발] 보험 서비스 유지보수 및 토스보험파트너 서비스 구축">
-  <토스보험Content />
+<Collapsible
+  tag="서비스 개발"
+  title="보험, 토스모바일, 토스비즈니스 프론트엔드 개발"
+>
+  <토스서비스개발Content />
 </Collapsible>
 
 <SubHeading>Zepl</SubHeading>
