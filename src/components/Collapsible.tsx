@@ -9,10 +9,12 @@ const Collapsible = ({
   title,
   children,
   link,
+  tag,
 }: {
   title: ReactNode
   children?: ReactNode
   link?: string
+  tag?: string
 }) => {
   const [opened, setOpened] = useState(false)
   return (
@@ -25,7 +27,10 @@ const Collapsible = ({
           setOpened(!opened)
         }}
       >
-        {title}
+        <Flex align="center">
+          {tag != null && <Tag style={{ marginRight: 5 }}>{tag}</Tag>}
+          {title}
+        </Flex>
         <Flex align="center">
           {link && (
             <a href={link} target="_blank">
@@ -72,6 +77,17 @@ const Title = styled.div`
   &:hover {
     color: var(--color-primary);
   }
+`
+
+const Tag = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #fff5df;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 3px 7px;
+  border-radius: 10px;
+  color: #707070;
 `
 
 const Wrapper = styled.div`
