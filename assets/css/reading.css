@@ -1,0 +1,390 @@
+/* 읽기 모드: 글 말고는 아무것도 보이지 않게 */
+.reading {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) 0;
+}
+
+.page-head h1,
+.post-head h1 {
+  font-size: clamp(28px, 5vw, 38px);
+  margin: 0 0 var(--space-2);
+  letter-spacing: -0.01em;
+}
+
+.page-head h1 a {
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.page-head {
+  margin-bottom: var(--space-6);
+}
+
+/* 태그 필터 */
+.tag-filter ul,
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-filter {
+  margin-bottom: var(--space-7);
+}
+
+.tag-filter a {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.tag-filter a span {
+  margin-left: 2px;
+  font-size: 12px;
+}
+
+.tag-filter a[aria-current="page"] {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.tags a {
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+/* 글 목록 */
+.year h2 {
+  font-size: 15px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin: var(--space-7) 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.post-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post-list li {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+}
+
+.post-list time {
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  padding-top: 2px;
+}
+
+.post-title {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.post-list p {
+  margin: 2px 0 var(--space-1);
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.draft {
+  margin-left: var(--space-2);
+  padding: 0 6px;
+  border: 1px dashed var(--accent);
+  border-radius: var(--radius);
+  color: var(--accent);
+  font-size: 12px;
+}
+
+/* 글 본문 */
+.post-head {
+  margin-bottom: var(--space-6);
+}
+
+.meta {
+  display: flex;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-2);
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.toc {
+  margin: 0 0 var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border-left: 2px solid var(--line);
+  font-size: 14px;
+}
+
+.toc p {
+  margin: 0 0 var(--space-1);
+  color: var(--ink-soft);
+}
+
+.toc ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toc .toc-3 {
+  padding-left: var(--space-4);
+}
+
+.toc a {
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose h2 {
+  font-size: 26px;
+  margin: var(--space-8) 0 var(--space-3);
+}
+
+.prose h3 {
+  font-size: 21px;
+  margin: var(--space-7) 0 var(--space-2);
+}
+
+.prose h4 {
+  font-size: 17px;
+  margin: var(--space-6) 0 var(--space-2);
+}
+
+.prose :is(h2, h3, h4) {
+  scroll-margin-top: var(--space-5);
+}
+
+.prose p,
+.prose ul,
+.prose ol,
+.prose blockquote,
+.prose table,
+.prose pre {
+  margin: 0 0 var(--space-5);
+}
+
+.prose a {
+  color: var(--accent);
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.prose li + li {
+  margin-top: var(--space-1);
+}
+
+.prose img {
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.prose blockquote {
+  padding: 0 var(--space-4);
+  border-left: 3px solid var(--line);
+  color: var(--ink-soft);
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: var(--space-7) 0;
+}
+
+.prose table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.prose code {
+  font-family: var(--font-code);
+  font-size: 0.86em;
+  /* !== 같은 연산자를 합자로 바꾸지 않는다 */
+  font-variant-ligatures: none;
+}
+
+.prose :not(pre) > code {
+  padding: 1px 5px;
+  background: var(--code-bg);
+  border-radius: var(--radius);
+}
+
+/* Shiki: 라이트/다크 색을 CSS 변수로 받아 바꾼다 */
+.prose pre {
+  padding: var(--space-4);
+  overflow-x: auto;
+  background: var(--code-bg) !important;
+  border-radius: var(--radius);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark);
+  }
+}
+
+.embed {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 var(--space-5);
+}
+
+.embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--radius);
+}
+
+/* 이전·다음 글 */
+.post-foot {
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.pager a {
+  text-decoration: none;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pager span {
+  display: block;
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.pager .older {
+  text-align: right;
+}
+
+.comments {
+  margin-top: var(--space-7);
+}
+
+/* 조각글 타임라인 */
+.note-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--line);
+}
+
+.note {
+  position: relative;
+  padding: 0 0 var(--space-6) var(--space-5);
+  scroll-margin-top: var(--space-5);
+}
+
+.note::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 1px solid var(--ink-soft);
+}
+
+.note:target::before {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.note-date {
+  font-size: 13px;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.note h3 {
+  font-size: 18px;
+  margin: var(--space-1) 0 0;
+}
+
+.note h3 a {
+  text-decoration: none;
+}
+
+.note-desc {
+  margin: 0 0 var(--space-2);
+  color: var(--ink-soft);
+}
+
+.note-list.compact .prose {
+  display: none;
+}
+
+.not-found {
+  text-align: center;
+}
+
+.not-found h1 {
+  font-size: 64px;
+  margin: var(--space-7) 0 0;
+}
+
+@media (max-width: 520px) {
+  .post-list li {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .pager {
+    grid-template-columns: 1fr;
+  }
+
+  .pager .older {
+    text-align: left;
+  }
+}

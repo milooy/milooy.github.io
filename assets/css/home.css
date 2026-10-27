@@ -1,0 +1,52 @@
+/* 임시 홈. M5에서 손그림 일러스트와 함께 다시 만든다. */
+.hero {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-4) var(--space-4);
+  text-align: center;
+}
+
+/* TODO: 네 자아가 들어간 손그림으로 교체 */
+.hero-drawing {
+  color: var(--ink-soft);
+  max-width: 520px;
+  margin: 0 auto var(--space-5);
+}
+
+.hero-drawing svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 7vw, 52px);
+  margin: 0;
+}
+
+.hero p {
+  margin: var(--space-2) 0 0;
+  color: var(--ink-soft);
+}
+
+.home-section h2 {
+  font-size: 22px;
+  margin: var(--space-7) 0 0;
+}
+
+.home-section h2 a {
+  text-decoration: none;
+}
+
+.home-section .year h2 {
+  display: none;
+}
+
+.home-section .note-list {
+  margin-top: var(--space-4);
+}
+
+.more {
+  margin: var(--space-3) 0 0;
+  font-size: 15px;
+}
