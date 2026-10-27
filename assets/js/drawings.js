@@ -1,7 +1,8 @@
 // Drawings: 그림을 누르면 dialog로 크게 보고, ← →로 넘긴다.
+// 넘기는 범위는 누른 그림이 있는 묶음(스케치북 또는 휴지통) 안이다.
 // 스크립트가 없으면 링크가 원본 그림 파일을 연다.
 const viewer = document.querySelector(".viewer")
-const items = [...document.querySelectorAll(".drawing")]
+let items = []
 let index = 0
 
 const show = i => {
@@ -19,13 +20,17 @@ const show = i => {
   history.replaceState(null, "", `#${item.id}`)
 }
 
-items.forEach((item, i) => {
+const open = item => {
+  items = [...item.parentElement.children]
+  show(items.indexOf(item))
+  viewer.showModal()
+}
+
+for (const item of document.querySelectorAll(".drawing"))
   item.querySelector(".drawing-open").addEventListener("click", event => {
     event.preventDefault()
-    show(i)
-    viewer.showModal()
+    open(item)
   })
-})
 
 viewer
   .querySelectorAll("[data-step]")
@@ -50,9 +55,10 @@ viewer.addEventListener("close", () => {
   items[index].querySelector(".drawing-open").focus()
 })
 
-// /drawings/#slug 로 들어오면 그 그림을 바로 연다
-const start = items.findIndex(item => `#${item.id}` === location.hash)
-if (start >= 0) {
-  show(start)
-  viewer.showModal()
+// /drawings/#slug 로 들어오면 그 그림을 바로 연다. 휴지통 속 그림이면 휴지통부터 연다.
+const start = location.hash && document.getElementById(location.hash.slice(1))
+if (start?.classList.contains("drawing")) {
+  const trash = start.closest("details")
+  if (trash) trash.open = true
+  open(start)
 }

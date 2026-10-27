@@ -119,6 +119,18 @@
   background: #2f4858;
 }
 
+/* 커버가 없는 곡은 플레이리스트 커버와 같은 색에 음표를 그린다 */
+.track-cover-default {
+  display: grid;
+  place-items: center;
+  color: #f3ecdc;
+}
+
+.track-cover-default svg {
+  width: 70%;
+  height: auto;
+}
+
 .track-main {
   display: flex;
   flex-direction: column;
@@ -142,7 +154,7 @@
   inset: 0;
 }
 
-.track-artist {
+.track-credit {
   color: var(--ink-soft);
   font-size: 14px;
 }

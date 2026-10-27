@@ -1,6 +1,6 @@
 ---
 title: "My Jinji"
-artist: "Sunset Rollercoaster"
+original: "Sunset Rollercoaster"
 date: "2022-04-12"
 soundcloud: https://soundcloud.com/hellojayjin/my-jinji-female-cover
 duration: "3:59"

@@ -1,0 +1,2 @@
+<!-- 임시 그림. 커버 없는 트랙의 기본 썸네일. TODO: 손그림으로 교체 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 31V13"/><path d="M29 28V10"/><path d="M17 13C21 11.5 25 10.8 29 10"/><path d="M17 18C21 16.6 25 15.8 29 15"/><ellipse cx="13.5" cy="31.5" rx="4" ry="3" transform="rotate(-18 13.5 31.5)"/><ellipse cx="25.5" cy="28.5" rx="4" ry="3" transform="rotate(-18 25.5 28.5)"/></svg>

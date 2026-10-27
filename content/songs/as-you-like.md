@@ -1,6 +1,6 @@
 ---
 title: "마음대로"
-artist: "TODO"  # TODO: 원곡자 확인
+original: "이진아"
 date: "2022-08-10"
 soundcloud: https://soundcloud.com/hellojayjin/from-my-heart
 duration: "3:11"

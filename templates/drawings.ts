@@ -1,5 +1,6 @@
 // Drawings: 펼친 스케치북에 그림을 붙여 둔 갤러리. 누르면 크게 보고 ← →로 넘긴다.
-import type { Drawing } from "../lib/content.ts"
+// 아래에는 B컷을 구겨 버린 휴지통이 있다. 열면 휴지통이 엎어지고, 종이에 마우스를 올리면 펴진다.
+import type { BCut, Drawing } from "../lib/content.ts"
 import { html, raw } from "../lib/html.ts"
 import { drawing, formatDate, layout, type BuildContext } from "./layout.ts"
 
@@ -34,7 +35,55 @@ const piece = (item: Drawing) =>
     }
   </li>`
 
-export const drawingsPage = (ctx: BuildContext, drawings: Drawing[]) =>
+// 구겨진 종이는 더 많이 기울이고(-8° ~ 8°) 위아래로 흩뜨린다
+const crumpled = (item: BCut) => {
+  const h = hash(item.slug)
+  const date = item.date ? formatDate(item.date) : ""
+  return html`<li
+    class="drawing crumpled"
+    id="${item.slug}"
+    style="--tilt: ${(h % 17) - 8}deg; --drop: ${(h >>> 5) % 13}px"
+  >
+    <figure>
+      <a class="drawing-open" href="/drawings/${item.image}">
+        <img src="/drawings/${item.image}" alt="B컷 ${date}" loading="lazy" />
+      </a>
+      <figcaption>
+        <span class="drawing-title">B컷</span>
+        <span class="drawing-meta">${date}</span>
+      </figcaption>
+    </figure>
+  </li>`
+}
+
+const trash = (bcuts: BCut[]) =>
+  html`<details class="trash" id="b-cuts">
+    <summary>
+      <span class="trash-can"
+        >${drawing("trash", "구겨진 종이가 담긴 휴지통")}</span
+      >
+      <span class="trash-label">
+        <span class="eyebrow">B Cuts</span>
+        <strong>휴지통</strong>
+        <span class="trash-count"
+          >걸기엔 민망하고 버리긴 아까운 그림 ${bcuts.length}장</span
+        >
+        <span class="trash-toggle">
+          <span class="when-closed">뒤져 보기 →</span>
+          <span class="when-open">다시 주워 담기</span>
+        </span>
+      </span>
+    </summary>
+    <ol class="crumpled-list">
+      ${bcuts.map(crumpled)}
+    </ol>
+  </details>`
+
+export const drawingsPage = (
+  ctx: BuildContext,
+  drawings: Drawing[],
+  bcuts: BCut[],
+) =>
   layout(ctx, {
     path: "/drawings/",
     title: "Drawings",
@@ -59,6 +108,7 @@ export const drawingsPage = (ctx: BuildContext, drawings: Drawing[]) =>
           ${drawings.map(piece)}
         </ol>
       </div>
+      ${bcuts.length ? trash(bcuts) : ""}
       <dialog class="viewer" aria-label="그림 크게 보기">
         <figure>
           <img alt="" />

@@ -21,11 +21,15 @@ const track = (song: Song, i: number) =>
             alt=""
             loading="lazy"
           />`
-        : html`<span class="track-cover" aria-hidden="true"></span>`
+        : html`<span class="track-cover track-cover-default"
+            >${drawing("track")}</span
+          >`
     }
     <div class="track-main">
       <a class="track-title" href="${song.soundcloud}">${song.title}</a>
-      <span class="track-artist">${song.artist}</span>
+      <span class="track-credit"
+        >${song.original ? `원곡 · ${song.original}` : "자작곡"}</span
+      >
       ${
         song.html.trim()
           ? html`<details class="track-note">

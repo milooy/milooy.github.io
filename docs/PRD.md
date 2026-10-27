@@ -147,6 +147,7 @@ Home  /                       손그림 일러스트, 최근 글
 
 - 그림이 주인공인 갤러리. 스케치북을 펼친 듯한 배치에 그림마다 제목, 날짜, 재료.
 - 누르면 크게 보기, 키보드 ← →로 넘기기.
+- 아래에 B컷 휴지통. 걸기엔 민망한 그림을 구겨진 종이처럼 담아 두고, 열면 휴지통이 엎어진다. 종이에 마우스를 올리면 펴지면서 색이 돌아온다. B컷은 md 없이 `content/drawings/b-cuts/`에 그림 파일만 둔다.
 - 원본은 보존하고, 웹용 크기는 빌드에서 만든다.
 
 ### Songs · `/songs/` (전시 모드)
@@ -196,7 +197,7 @@ build.ts
 | note    | `date`(시간 포함)                                               | `title`, `image`, `link`                                   | 짧은 글        |
 | book    | `title`, `rating`(0.5~5, 0.5 단위), `readAt`(YYYY 또는 YYYY-MM) | `author`, `cover`, `spineColor`, `isbn`, `review`(글 slug) | 한 줄 평, 메모 |
 | drawing | `title`, `date`, `image`                                        | `medium`(재료)                                             | 그림 이야기    |
-| song    | `title`, `artist`(원곡자), `date`, `soundcloud`(URL)            | `cover`                                                    | 코멘트         |
+| song    | `title`, `date`, `soundcloud`(URL)                              | `original`(원곡자, 없으면 자작곡), `duration`, `cover`     | 코멘트         |
 | toy     | `title`, `year`, `summary`, `url`                               | `repo`, `stack`, `preview`                                 | 만든 이야기    |
 | resume  | `title`                                                         |                                                            | 경력 본문      |
 
@@ -321,9 +322,10 @@ M1이 끝나면 Gatsby를 완전히 대체하고 main에 배포한다. 나머지
 - [ ] Books: 2023 결산 책 별점 다듬기, 2024년 이후 책 추가
 - [ ] Books: 카카오 REST API 키 발급해서 표지 수집
 - [ ] Toys: TBD 더미를 실제 프로젝트로 교체
-- [ ] Drawings: 임시 그림 4장을 아이패드 그림으로 교체
+- [x] Drawings: 임시 그림 4장을 텀블러 시절 그림 31장으로 교체
+- [ ] Drawings: 그림 제목 다듬기 (지금은 그림을 보고 붙인 가제목)
 - [ ] Songs: 곡마다 코멘트 쓰기 (md 본문에 쓰면 트랙 아래 펼침으로 보인다)
-- [ ] Songs: 「마음대로」 원곡자 채우기 (지금 `TODO`)
+- [x] Songs: 「마음대로」 원곡자 채우기
 - [ ] Resume: SLASH 23 퍼널 발표 링크 고치기 (모닥불 영상 주소가 들어가 있었다)
 - [ ] Resume: 옛 이력서에서 안 쓰던 토스모바일 「금액장애 박멸」 사례를 넣을지 결정 (git 기록에 있다)
 - [ ] 방명록을 giscus 페이지로 남길지 결정
@@ -331,4 +333,4 @@ M1이 끝나면 Gatsby를 완전히 대체하고 main에 배포한다. 나머지
 ### 설정
 
 - [ ] Drawings: 원본은 두고 웹용 크기 사본을 빌드에서 만들기 (지금은 그대로 복사)
-- [ ] 레포에 GitHub Discussions 켜고 giscus 앱 설치
+- [x] 레포에 GitHub Discussions 켜고 giscus 앱 설치

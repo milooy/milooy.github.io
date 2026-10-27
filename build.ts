@@ -5,6 +5,7 @@ import fs from "node:fs"
 import path from "node:path"
 import {
   assertValid,
+  loadBCuts,
   loadBooks,
   loadDrawings,
   loadNotes,
@@ -49,6 +50,7 @@ const books = loadBooks(new Set(posts.map(p => p.slug)))
 const resume = loadResume()
 const toys = loadToys()
 const drawings = loadDrawings()
+const bcuts = loadBCuts()
 const songs = loadSongs()
 const redirects = loadRedirects()
 assertValid()
@@ -61,7 +63,7 @@ fs.cpSync("assets", path.join(OUT, "assets"), { recursive: true })
 for (const dir of ["drawings", "toys"])
   fs.cpSync(path.join("content", dir), path.join(OUT, dir), {
     recursive: true,
-    filter: src => !src.endsWith(".md"),
+    filter: src => !src.endsWith(".md") && !path.basename(src).startsWith("."),
   })
 
 const written = new Set<string>()
@@ -87,7 +89,7 @@ posts.forEach((post, i) =>
 )
 write("/notes/", notesPage(ctx, notes))
 write("/books/", booksPage(ctx, books))
-write("/drawings/", drawingsPage(ctx, drawings))
+write("/drawings/", drawingsPage(ctx, drawings, bcuts))
 write("/songs/", songsPage(ctx, songs))
 write("/toys/", toysPage(ctx, toys))
 if (resume) write("/resume/", resumePage(ctx, resume))
@@ -113,6 +115,6 @@ for (const [from, to] of Object.entries(redirects)) {
 const ms = Math.round(performance.now() - started)
 console.log(
   `빌드 완료 ${ms}ms · 글 ${posts.length} · 조각글 ${notes.length} · 책 ${books.length} · ` +
-    `그림 ${drawings.length} · 노래 ${songs.length} · 토이 ${toys.length} · ` +
+    `그림 ${drawings.length} · B컷 ${bcuts.length} · 노래 ${songs.length} · 토이 ${toys.length} · ` +
     `리다이렉트 ${Object.keys(redirects).length - skipped}${ctx.dev ? " · dev" : ""}`,
 )

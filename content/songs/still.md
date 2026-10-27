@@ -1,6 +1,6 @@
 ---
 title: "지금껏 그랬듯 앞으로도 계속"
-artist: "구름"
+original: "구름"
 date: "2022-02-01"
 soundcloud: https://soundcloud.com/hellojayjin/still
 duration: "3:53"

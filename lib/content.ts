@@ -76,10 +76,17 @@ export type Drawing = {
   html: string
 }
 
+// 휴지통에 담는 B컷. 글 없이 그림 파일만 둔다.
+export type BCut = {
+  slug: string
+  image: string
+  date?: string
+}
+
 export type Song = {
   slug: string
   title: string
-  artist: string
+  original?: string // 원곡자. 비어 있으면 자작곡
   date: string
   soundcloud: string
   duration?: string
@@ -308,6 +315,24 @@ export const loadDrawings = (): Drawing[] =>
     })
     .sort((a, b) => b.date.localeCompare(a.date))
 
+const IMAGE = /\.(jpe?g|png|gif|webp|svg)$/i
+
+// content/drawings/b-cuts/ 의 그림 파일. 파일 이름이 날짜(YYYY-MM-DD)로 시작하면 그 날짜를 쓴다.
+export const loadBCuts = (): BCut[] => {
+  const dir = path.join(CONTENT, "drawings", "b-cuts")
+  if (!fs.existsSync(dir)) return []
+  return fs
+    .readdirSync(dir)
+    .filter(f => IMAGE.test(f))
+    .sort()
+    .map(f => ({
+      slug: `b-${path.parse(f).name}`,
+      image: `b-cuts/${f}`,
+      date: DATE.exec(f)?.[1],
+    }))
+    .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""))
+}
+
 export const loadSongs = (): Song[] =>
   readDir("songs")
     .map(doc => {
@@ -320,7 +345,7 @@ export const loadSongs = (): Song[] =>
       return {
         slug: doc.slug,
         title: str(doc, "title", true) ?? doc.slug,
-        artist: str(doc, "artist", true) ?? "",
+        original: str(doc, "original"),
         date: date(doc, "date").date,
         soundcloud,
         duration,

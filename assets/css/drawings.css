@@ -170,8 +170,250 @@
   font-size: 24px;
 }
 
+/* B컷 휴지통 */
+.trash {
+  margin-top: var(--space-8);
+}
+
+.trash > summary {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: end;
+  gap: var(--space-5);
+  width: fit-content;
+  cursor: pointer;
+  list-style: none;
+}
+
+.trash > summary::-webkit-details-marker {
+  display: none;
+}
+
+.trash-can {
+  color: var(--ink-soft);
+}
+
+.trash-can svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 30% 94%;
+  transition: rotate 0.4s var(--ease);
+}
+
+.trash:not([open]) > summary:hover .trash-can svg {
+  rotate: -6deg;
+}
+
+/* 열면 휴지통이 엎어진다 */
+.trash[open] .trash-can svg {
+  rotate: -28deg;
+}
+
+.trash-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: var(--space-3);
+}
+
+.trash-label strong {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: normal;
+}
+
+.trash-count {
+  color: var(--ink-soft);
+}
+
+.trash-toggle {
+  margin-top: var(--space-2);
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.trash[open] .when-closed,
+.trash:not([open]) .when-open {
+  display: none;
+}
+
+.crumpled-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: var(--space-6) 0 0;
+  padding: var(--space-4) 0;
+  list-style: none;
+}
+
+/* 구겨진 종이: 가장자리가 울퉁불퉁하고 색이 바랬다. 올리면 펴지면서 색이 돌아온다 */
+.drawing.crumpled {
+  --flat: polygon(
+    0 0,
+    25% 0,
+    50% 0,
+    75% 0,
+    100% 0,
+    100% 33%,
+    100% 66%,
+    100% 100%,
+    75% 100%,
+    50% 100%,
+    25% 100%,
+    0 100%,
+    0 66%,
+    0 33%
+  );
+  --crumple: polygon(
+    3% 5%,
+    22% 1%,
+    48% 4%,
+    77% 0,
+    97% 3%,
+    100% 30%,
+    96% 64%,
+    99% 97%,
+    74% 100%,
+    52% 95%,
+    24% 99%,
+    2% 96%,
+    4% 63%,
+    0 35%
+  );
+  position: relative;
+  width: 150px;
+  margin: 0 -4px var(--space-3);
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.2));
+  transform: translateY(var(--drop, 0)) rotate(var(--tilt, 0deg));
+}
+
+.drawing.crumpled:nth-child(3n + 2) {
+  --crumple: polygon(
+    0 2%,
+    28% 4%,
+    51% 0,
+    73% 5%,
+    100% 0,
+    97% 36%,
+    100% 61%,
+    95% 100%,
+    77% 96%,
+    49% 100%,
+    21% 95%,
+    0 100%,
+    3% 70%,
+    1% 31%
+  );
+}
+
+.drawing.crumpled:nth-child(3n) {
+  --crumple: polygon(
+    5% 0,
+    26% 3%,
+    47% 1%,
+    76% 4%,
+    99% 1%,
+    96% 28%,
+    100% 68%,
+    98% 95%,
+    71% 99%,
+    50% 96%,
+    27% 100%,
+    1% 98%,
+    0 66%,
+    4% 34%
+  );
+}
+
+.crumpled figure {
+  padding: 6px 6px 4px;
+  background: #f1ede4;
+  box-shadow: none;
+  clip-path: var(--crumple);
+  transition:
+    clip-path var(--quick) var(--ease),
+    filter var(--quick) var(--ease);
+  filter: grayscale(0.75) sepia(0.15) brightness(0.97);
+}
+
+/* 테이프 대신 구김 자국 */
+.crumpled figure::before {
+  display: none;
+}
+
+.crumpled figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 38%,
+      rgb(0 0 0 / 0.12) 40%,
+      rgb(255 255 255 / 0.4) 41%,
+      transparent 44%
+    ),
+    linear-gradient(
+      28deg,
+      transparent 55%,
+      rgb(0 0 0 / 0.1) 57%,
+      rgb(255 255 255 / 0.35) 58%,
+      transparent 61%
+    ),
+    linear-gradient(
+      200deg,
+      transparent 20%,
+      rgb(0 0 0 / 0.08) 22%,
+      rgb(255 255 255 / 0.35) 23%,
+      transparent 26%
+    ),
+    radial-gradient(circle at 30% 70%, rgb(0 0 0 / 0.1), transparent 60%);
+  transition: opacity var(--quick) var(--ease);
+}
+
+.crumpled figcaption {
+  padding-top: 2px;
+}
+
+.crumpled .drawing-title {
+  display: none;
+}
+
+.crumpled .drawing-meta {
+  font-size: 11px;
+}
+
+.drawing.crumpled:hover,
+.drawing.crumpled:focus-within {
+  z-index: 1;
+  transform: translateY(var(--drop, 0)) rotate(0deg) scale(1.25);
+}
+
+.crumpled:hover figure,
+.crumpled:focus-within figure {
+  clip-path: var(--flat);
+  filter: none;
+}
+
+.crumpled:hover figure::after,
+.crumpled:focus-within figure::after {
+  opacity: 0;
+}
+
 @media (max-width: 640px) {
   .sketchbook {
     padding: var(--space-7) var(--space-4) var(--space-4);
+  }
+
+  .trash > summary {
+    grid-template-columns: 110px 1fr;
+    gap: var(--space-4);
+  }
+
+  .drawing.crumpled {
+    width: 104px;
   }
 }

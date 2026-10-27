@@ -1,6 +1,6 @@
 ---
 title: "더 나은 사람"
-artist: "김수영"
+original: "김수영"
 date: "2020-05-29"
 soundcloud: https://soundcloud.com/hellojayjin/better
 duration: "4:55"

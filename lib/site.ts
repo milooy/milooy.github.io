@@ -7,13 +7,13 @@ export const site = {
   lang: "ko",
   github: "https://github.com/milooy",
   gaId: "G-4ZD0PJFMV4",
-  // TODO: 레포에 GitHub Discussions를 켜고 https://giscus.app 에서 받은 repoId, categoryId를 넣는다.
+  // 댓글은 레포 Discussions의 Comments 카테고리에 쌓인다 (https://giscus.app 에서 받은 값).
   // 둘 중 하나라도 비어 있으면 댓글 영역을 그리지 않는다.
   giscus: {
     repo: "milooy/milooy.github.io",
-    repoId: "",
+    repoId: "R_kgDOGZx9Tw",
     category: "Comments",
-    categoryId: "",
+    categoryId: "DIC_kwDOGZx9T84DJvsO",
   },
   nav: [
     { href: "/blog/", label: "Blog" },
