@@ -1,0 +1,99 @@
+/* Toys: 창이 난 장난감 상자 카드 */
+.toy-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toy {
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 70%, transparent);
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: 5px 5px 0 var(--line);
+  transition:
+    transform var(--quick) var(--ease),
+    box-shadow var(--quick) var(--ease);
+}
+
+/* 집어 들면 살짝 기울어진다 */
+.toy:hover,
+.toy:focus-within {
+  transform: rotate(-1.2deg) translateY(-3px);
+  box-shadow: 8px 9px 0 var(--line);
+}
+
+.toy-window {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  margin: var(--space-3);
+  overflow: hidden;
+  border: 1.5px dashed color-mix(in srgb, var(--ink) 45%, transparent);
+  border-radius: 4px;
+  background: var(--code-bg);
+  color: var(--ink-soft);
+}
+
+.toy-window svg {
+  width: 62%;
+  height: auto;
+}
+
+.toy-window :is(img, video) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.toy-body {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+.toy h2 {
+  margin: 0 0 var(--space-1);
+  font-size: 22px;
+}
+
+.toy h2 a {
+  text-decoration: none;
+}
+
+.toy-summary {
+  margin: 0 0 var(--space-2);
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.toy-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0 0 var(--space-3);
+  font-size: 12px;
+}
+
+.toy-meta span {
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink-soft);
+}
+
+.toy-links {
+  display: flex;
+  gap: var(--space-4);
+  margin: 0;
+  font-size: 15px;
+}
+
+.toy-links a:first-child {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}

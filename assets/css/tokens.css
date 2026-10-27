@@ -1,0 +1,58 @@
+/*
+ * 디자인 토큰 (임시). 색과 폰트는 이 파일 하나만 바꾸면 사이트 전체에 반영된다.
+ * 방향: 미색 종이에 연필과 붉은 색연필.
+ * TODO: 폰트와 강조색 확정 (docs/PRD.md의 TODO 참고)
+ */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+@import url("https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap");
+
+:root {
+  color-scheme: light dark;
+
+  --paper: #faf8f3;
+  --ink: #22201c;
+  --ink-soft: #6e6a62;
+  --line: #e7e2d8;
+  --accent: #b4462e;
+  --code-bg: #f3f0e9;
+  --wood: #b08a5a;
+  --wood-edge: #8a6a42;
+
+  --font-body:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+  --font-display: "MaruBuriBold", "MaruBuri", "Nanum Myeongjo", serif;
+  --font-code: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text: 17px;
+  --leading: 1.8;
+  --measure: 680px;
+  --radius: 4px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --quick: 180ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1a1917;
+    --ink: #ece8e0;
+    --ink-soft: #a29d94;
+    --line: #2f2d29;
+    --accent: #ec7f63;
+    --code-bg: #232220;
+    --wood: #6b5134;
+    --wood-edge: #4d3a25;
+  }
+}

@@ -1,68 +1,25 @@
 {
   "name": "milooy.github.io",
-  "description": "Today yurim felt",
-  "version": "0.1.0",
+  "private": true,
+  "type": "module",
   "engines": {
-    "node": ">=18.20.4"
-  },
-  "author": "Yurim Jin<jayjinjay@gmail.com>",
-  "dependencies": {
-    "@mdx-js/mdx": "^3.0.1",
-    "@mdx-js/react": "^3.0.1",
-    "babel-plugin-styled-components": "^2.0.6",
-    "gatsby": "^5.13.7",
-    "gatsby-plugin-disqus": "^1.2.3",
-    "gatsby-plugin-feed": "^5.13.1",
-    "gatsby-plugin-gatsby-cloud": "^5.13.1",
-    "gatsby-plugin-google-gtag": "^5.13.1",
-    "gatsby-plugin-image": "^3.13.1",
-    "gatsby-plugin-manifest": "^5.13.1",
-    "gatsby-plugin-mdx": "^5.13.1",
-    "gatsby-plugin-offline": "^6.13.2",
-    "gatsby-plugin-page-creator": "^5.13.1",
-    "gatsby-plugin-react-helmet": "^6.13.1",
-    "gatsby-plugin-sharp": "^5.13.1",
-    "gatsby-plugin-styled-components": "^6.13.1",
-    "gatsby-remark-copy-linked-files": "^6.13.1",
-    "gatsby-remark-embed-video": "^3.1.1",
-    "gatsby-remark-images": "^7.13.1",
-    "gatsby-remark-prismjs": "^7.13.1",
-    "gatsby-remark-responsive-iframe": "^6.13.1",
-    "gatsby-remark-smartypants": "^6.13.1",
-    "gatsby-source-filesystem": "^5.13.1",
-    "gatsby-transformer-remark": "^6.13.1",
-    "gatsby-transformer-sharp": "^5.13.1",
-    "prismjs": "^1.29.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-helmet": "^6.1.0",
-    "sharp": "^0.33.5",
-    "styled-components": "^6.1.12",
-    "typeface-merriweather": "1.1.13",
-    "typeface-montserrat": "1.1.13",
-    "typescript": "^5.5.4"
-  },
-  "devDependencies": {
-    "@types/styled-components": "^5.1.24",
-    "prettier": "2.4.1"
-  },
-  "homepage": "https://milooy.github.io",
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "0BSD",
-  "main": "n/a",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/milooy/milooy.github.io.git"
+    "node": ">=24"
   },
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "gatsby develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "dev": "node scripts/dev.ts",
+    "build": "node build.ts",
+    "typecheck": "tsc",
+    "format": "prettier --write \"**/*.{ts,js,css,json,md}\""
+  },
+  "dependencies": {
+    "markdown-it": "^15.0.3",
+    "shiki": "^4.5.0",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.2.0",
+    "@types/node": "^26.6.5",
+    "prettier": "^3.9.10",
+    "typescript": "^7.0.2"
   }
 }
