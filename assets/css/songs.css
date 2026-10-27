@@ -1,56 +1,29 @@
-/* Songs: 플레이리스트 구조만 빌리고, 개성은 직접 그린 커버로 */
-.playlist-head {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: var(--space-6);
-  align-items: end;
-  margin-bottom: var(--space-6);
-}
-
-/* TODO: 직접 그린 커버로 교체 */
-.playlist-cover {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-  border-radius: 6px;
-  background: #2f4858;
-  color: #f3ecdc;
-  box-shadow: 0 14px 30px -18px rgb(0 0 0 / 0.5);
-}
-
-.playlist-cover svg {
-  width: 70%;
-  height: auto;
-}
-
-.playlist-info h1 {
-  font-size: clamp(32px, 6vw, 44px);
-  margin: 0;
-}
-
-.playlist-by {
-  margin: 0;
-  color: var(--accent);
-  font-size: 17px;
-}
-
+/* Songs: 머리글은 Books, Drawings와 같은 틀(.section-head)에 손그림 */
+/* 오른쪽 칸(제목·소개·버튼)이 왼쪽 손그림보다 높아지면 머리글 전체가 내려앉는다.
+   다른 섹션과 같은 자리에 오도록 버튼 줄을 낮게 둔다 */
 .playlist-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-4);
-  margin-top: var(--space-4);
-  font-size: 15px;
+  margin-top: var(--space-3);
+  font-size: 14px;
+}
+
+.playlist-meta {
+  color: var(--ink-soft);
+  font-size: 14px;
 }
 
 .play-all {
-  padding: var(--space-2) var(--space-5);
+  padding: 6px 18px;
   border: 0;
   border-radius: 999px;
   background: var(--accent);
   color: var(--paper);
   font: inherit;
   font-weight: 600;
+  line-height: 1.4;
   cursor: pointer;
 }
 
@@ -184,16 +157,34 @@
   color: var(--accent);
 }
 
+/* 여기 있는 곡이 다가 아니라서, 목록 끝에 SoundCloud로 가는 버튼을 크게 둔다 */
+.playlist-more {
+  margin: var(--space-7) 0 0;
+  text-align: center;
+}
+
+.soundcloud-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border: 1.5px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background var(--quick) var(--ease),
+    color var(--quick) var(--ease);
+}
+
+.soundcloud-more:hover,
+.soundcloud-more:focus-visible {
+  background: var(--accent);
+  color: var(--paper);
+}
+
 @media (max-width: 640px) {
-  .playlist-head {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-  }
-
-  .playlist-cover {
-    max-width: 220px;
-  }
-
   .track {
     grid-template-columns: 1.5em 40px 1fr 3em;
   }

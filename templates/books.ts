@@ -112,10 +112,7 @@ export const booksPage = (ctx: BuildContext, books: Book[]) => {
         <div class="books-drawing">${drawing("books", "책 몇 권과 화분")}</div>
         <div>
           <h1>Books</h1>
-          <p class="lede">
-            읽은 책 ${books.length}권. 별점은 5점 만점이고, 책등을 누르면 한 줄
-            평을 볼 수 있어요.
-          </p>
+          <p class="lede">You are what you read, ${books.length}권</p>
           <div class="year-filter" role="group" aria-label="읽은 해로 거르기">
             <button type="button" data-year="" aria-pressed="true">전체</button>
             ${years.map(y => html`<button type="button" data-year="${y}" aria-pressed="false">${y}</button>`)}

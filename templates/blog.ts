@@ -77,7 +77,7 @@ export const blogIndex = (
         <h1>
           ${activeTag ? html`<a href="/blog/">Blog</a> / #${activeTag}` : "Blog"}
         </h1>
-        <p class="lede">개발하고 팀을 이끌며 배운 것들. ${posts.length}편.</p>
+        <p class="lede">현상 밑의 패턴을 찾아서. ${posts.length}편.</p>
       </header>
       <nav class="tag-filter" aria-label="태그로 거르기">
         <ul>

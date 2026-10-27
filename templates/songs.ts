@@ -57,25 +57,28 @@ export const songsPage = (ctx: BuildContext, songs: Song[]) => {
     styles: ["/assets/css/showcase.css", "/assets/css/songs.css"],
     scripts: ["/assets/js/songs.js"],
     body: html`<div class="showcase">
-      <header class="playlist-head">
-        <div class="playlist-cover">${drawing("songs", "마이크와 음표")}</div>
-        <div class="playlist-info">
-          <p class="eyebrow">Playlist</p>
-          <h1>부른 노래</h1>
-          <p class="playlist-by">JayJin · 홈 레코딩</p>
-          <p class="lede">${songs.length}곡 · ${minutes}분</p>
+      <header class="section-head">
+        <div class="section-drawing">${drawing("songs", "마이크와 음표")}</div>
+        <div>
+          <h1>Sing sing sing!</h1>
+          <p class="lede">홈레코딩은 즐거워</p>
           <div class="playlist-actions">
             <button class="play-all" type="button">▶ 재생</button>
-            <a href="${PROFILE}">SoundCloud에서 보기</a>
+            <span class="playlist-meta">${songs.length}곡 · ${minutes}분</span>
           </div>
         </div>
       </header>
       <div class="player" aria-live="polite">
-        <p>곡을 누르면 여기서 재생돼요.</p>
+        <p>아직은 조용하다.</p>
       </div>
       <ol class="tracklist">
         ${songs.map(track)}
       </ol>
+      <p class="playlist-more">
+        <a class="soundcloud-more" href="${PROFILE}"
+          >SoundCloud에서 더 보기 <span aria-hidden="true">↗</span></a
+        >
+      </p>
     </div>`,
   })
 }
