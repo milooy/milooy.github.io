@@ -8,7 +8,11 @@ import path from "node:path"
 import { stripVTControlCharacters } from "node:util"
 
 const PORT = Number(process.env.PORT ?? 3000)
-const OUT = path.resolve("dist")
+const OUT = path.resolve(process.env.OUT_DIR ?? "dist")
+// 빌드는 옆 폴더(NEXT)에 하고, 성공하면 한 번에 바꿔 끼운다.
+// 빌드 중에도 반쯤 지워지거나 덜 써진 페이지가 나가지 않고, 실패하면 직전 빌드가 그대로 남는다.
+const NEXT = `${OUT}.next`
+const OLD = `${OUT}.old`
 const WATCH = ["content", "templates", "assets", "lib", "static"]
 const CLIENT = "scripts/dev-client.js"
 
@@ -38,6 +42,14 @@ const send = (event: string, data?: string) => {
   for (const res of clients) sendTo(res, event, data)
 }
 
+// 이름 바꾸기 두 번은 같은 틱에 끝나서 그 사이에 들어오는 요청이 없다
+const swap = () => {
+  fs.rmSync(OLD, { recursive: true, force: true })
+  if (fs.existsSync(OUT)) fs.renameSync(OUT, OLD)
+  fs.renameSync(NEXT, OUT)
+  fs.rm(OLD, { recursive: true, force: true }, () => {})
+}
+
 // 빌드는 별도 프로세스로 돌려서, 바뀐 템플릿·lib 모듈을 매번 새로 읽게 한다
 let building: Promise<void> | null = null
 let queued = false
@@ -49,6 +61,7 @@ const build = (): Promise<void> => {
   building = new Promise<void>(resolve => {
     const child = spawn(process.execPath, ["build.ts", "--dev"], {
       stdio: ["ignore", "inherit", "pipe"],
+      env: { ...process.env, OUT_DIR: NEXT },
     })
     let stderr = ""
     child.stderr.setEncoding("utf8")
@@ -65,8 +78,13 @@ const build = (): Promise<void> => {
           ? ""
           : stripVTControlCharacters(stderr).trim() ||
             `빌드 실패 (코드 ${code})`
-      if (lastError) send("build-error", JSON.stringify(lastError))
-      else send("reload")
+      if (lastError) {
+        fs.rmSync(NEXT, { recursive: true, force: true })
+        send("build-error", JSON.stringify(lastError))
+      } else {
+        swap()
+        send("reload")
+      }
       if (queued) {
         queued = false
         build()
@@ -129,9 +147,13 @@ fs.watch(".", (_, file) => {
   if (file === "build.ts") schedule()
 })
 
+// 읽는 사이 파일이 사라지면(빌드를 바꿔 끼운 직후 등) 서버가 죽지 않게 연결만 끊는다
+const pipeFile = (stream: fs.ReadStream, res: http.ServerResponse) =>
+  stream.on("error", () => res.destroy()).pipe(res)
+
 const resolveFile = (urlPath: string) => {
   const file = path.join(OUT, decodeURIComponent(urlPath))
-  if (!file.startsWith(OUT)) return undefined
+  if (file !== OUT && !file.startsWith(OUT + path.sep)) return undefined
   if (fs.existsSync(file) && fs.statSync(file).isDirectory()) {
     if (!urlPath.endsWith("/")) return { redirect: `${urlPath}/` }
     return { file: path.join(file, "index.html") }
@@ -158,7 +180,7 @@ http
         "content-type": TYPES[".js"],
         "cache-control": "no-store",
       })
-      fs.createReadStream(CLIENT).pipe(res)
+      pipeFile(fs.createReadStream(CLIENT), res)
       return
     }
     const resolved = resolveFile(url.pathname)
@@ -183,7 +205,7 @@ http
       "content-type": TYPES[path.extname(file)] ?? "application/octet-stream",
       "cache-control": "no-store",
     })
-    fs.createReadStream(file).pipe(res)
+    pipeFile(fs.createReadStream(file), res)
   })
   .listen(PORT, async () => {
     await build()

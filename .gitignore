@@ -58,6 +58,8 @@ typings/
 .cache/
 public
 dist
+dist.next
+dist.old
 
 # Mac files
 .DS_Store

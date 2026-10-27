@@ -1,7 +1,17 @@
 // 개발 서버(scripts/dev.ts)가 /__dev.js로 주는 브라우저 코드. 배포에는 들어가지 않는다.
 const events = new EventSource("/__reload")
 
-events.addEventListener("reload", () => location.reload())
+// 링크를 눌러 다른 페이지로 가는 중에 새로고침하면 그 이동이 취소된다(메뉴를 눌러도 안 넘어간다).
+// 떠나는 중이면 새로고침하지 않는다. 다운로드처럼 페이지가 그대로 남을 때를 위해 잠시 뒤 되돌린다.
+let leaving = false
+addEventListener("beforeunload", () => {
+  leaving = true
+  setTimeout(() => (leaving = false), 3000)
+})
+
+events.addEventListener("reload", () => {
+  if (!leaving) location.reload()
+})
 
 // CSS만 바뀌면 그 <link>만 새로 받는다. 새 것이 다 받아진 뒤에 옛 것을 지워서 깜빡이지 않게 한다.
 events.addEventListener("css", ({ data: file }) => {

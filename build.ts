@@ -1,6 +1,7 @@
 // content/ + templates/ → dist/
 // node build.ts         배포용 빌드
 // node build.ts --dev   초안 포함, 분석 스크립트 대신 자동 새로고침
+// OUT_DIR=<폴더>         dist 대신 그 폴더에 쓴다 (개발 서버가 옆 폴더에 빌드할 때)
 import fs from "node:fs"
 import path from "node:path"
 import {
@@ -39,7 +40,7 @@ import { resumePage } from "./templates/resume.ts"
 import { songsPage } from "./templates/songs.ts"
 import { toysPage } from "./templates/toys.ts"
 
-const OUT = path.resolve("dist")
+const OUT = path.resolve(process.env.OUT_DIR ?? "dist")
 const started = performance.now()
 const ctx: BuildContext = { dev: process.argv.includes("--dev") }
 
