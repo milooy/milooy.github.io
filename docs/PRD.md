@@ -227,6 +227,8 @@ SSG 프레임워크 없이 `build.ts` 하나가 `content/`와 `templates/`를 �
 ### 개발과 배포
 
 - `npm run dev`: 파일이 바뀌면 다시 빌드하고 브라우저를 자동으로 새로고침한다. 서버는 `node:http`로 직접 만든다.
+  - `assets/css`만 바뀌면 빌드하지 않고 그 스타일시트만 갈아 끼운다. 화면 상태(스크롤, 열린 창, 재생 중인 노래)가 그대로 남는다.
+  - 빌드가 실패하면 에러를 브라우저 화면 위에 띄운다. 고쳐서 빌드되면 사라진다.
 - `npm run build`: 배포용 빌드. 글 100개 기준 수 초 안에 끝나야 한다.
 - main에 push하면 GitHub Actions가 빌드해서 GitHub Pages에 올린다. 기존 `gatsby.yml`을 대체한다.
 - 도메인은 `milooy.github.io`를 유지한다.

@@ -44,12 +44,8 @@ const analytics = () => html`
   </script>
 `
 
-// 개발 서버가 다시 빌드하면 페이지를 새로고침한다
-const liveReload = () => html`
-  <script>
-    new EventSource("/__reload").onmessage = () => location.reload()
-  </script>
-`
+// 개발 서버 스크립트: 다시 빌드하면 새로고침, CSS 교체, 빌드 에러 표시 (scripts/dev-client.js)
+const devClient = () => html`<script src="/__dev.js"></script>`
 
 export const layout = (ctx: BuildContext, props: LayoutProps) => {
   const { path, title, mode, body, styles = [], scripts = [] } = props
@@ -112,7 +108,7 @@ export const layout = (ctx: BuildContext, props: LayoutProps) => {
           </p>
         </footer>
         ${scripts.map(src => html`<script type="module" src="${src}"></script>`)}
-        ${ctx.dev ? liveReload() : ""}
+        ${ctx.dev ? devClient() : ""}
       </body>
     </html> `
 }

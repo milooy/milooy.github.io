@@ -6,7 +6,7 @@ Yurim Jin(진유림)의 개인 사이트. 프레임워크 없이 `build.ts` 하�
 
 ```sh
 npm install
-npm run dev     # http://localhost:3000, 저장하면 자동 새로고침
+npm run dev     # http://localhost:3000, 저장하면 자동 새로고침 (CSS는 새로고침 없이 교체)
 npm run build   # dist/에 배포용 빌드
 ```
 
@@ -51,5 +51,5 @@ assets/js/        전시 모드 페이지용 작은 스크립트
 assets/drawings/  임시 손그림 SVG (TODO: 직접 그린 그림으로 교체)
 static/           그대로 복사되는 파일
 content/          글, 조각글, 책, 페이지
-scripts/dev.ts    개발 서버
+scripts/dev.ts    개발 서버 (브라우저 쪽은 scripts/dev-client.js)
 ```
