@@ -83,32 +83,44 @@ const schedule = () => {
   timer = setTimeout(build, 80)
 }
 
-// CSS는 dist로 복사만 하고 열린 페이지에 알린다. 빌드 중이면 그 빌드가 복사하게 둔다.
-const changedCss = new Set<string>()
-let cssTimer: NodeJS.Timeout | undefined
-const swapCss = (file: string) => {
-  changedCss.add(file)
-  clearTimeout(cssTimer)
-  cssTimer = setTimeout(() => {
-    for (const file of changedCss) {
-      const src = path.join("assets", file)
-      if (building || !fs.existsSync(src)) {
-        schedule()
-        continue
-      }
+const isFile = (file: string) =>
+  fs.statSync(file, { throwIfNoEntry: false })?.isFile()
+
+// assets는 바뀐 게 CSS뿐이면 dist로 복사만 하고 열린 페이지에 알린다.
+// 편집기가 저장하며 잠깐 만든 임시 파일은 이미 사라졌고 dist에도 없으니 셈에서 뺀다.
+// 그 밖의 파일이 바뀌었거나 빌드 중이면 다시 빌드한다(빌드가 복사한다).
+const changedAssets = new Set<string>()
+let assetTimer: NodeJS.Timeout | undefined
+const assetChanged = (file: string) => {
+  changedAssets.add(file)
+  clearTimeout(assetTimer)
+  assetTimer = setTimeout(() => {
+    const files = [...changedAssets].filter(
+      f =>
+        isFile(path.join("assets", f)) || isFile(path.join(OUT, "assets", f)),
+    )
+    changedAssets.clear()
+    if (files.length === 0) return
+    if (
+      building ||
+      !files.every(f => f.endsWith(".css") && isFile(path.join("assets", f)))
+    ) {
+      schedule()
+      return
+    }
+    for (const file of files) {
       const dest = path.join(OUT, "assets", file)
       fs.mkdirSync(path.dirname(dest), { recursive: true })
-      fs.copyFileSync(src, dest)
+      fs.copyFileSync(path.join("assets", file), dest)
       send("css", `/assets/${file}`)
       console.log(`CSS 교체 /assets/${file}`)
     }
-    changedCss.clear()
   }, 30)
 }
 
 for (const target of WATCH)
   fs.watch(target, { recursive: true }, (_, file) => {
-    if (target === "assets" && file?.endsWith(".css")) swapCss(file)
+    if (target === "assets" && file) assetChanged(file)
     else schedule()
   })
 // build.ts 파일 자체를 지켜보면 빌드가 읽을 때(접근 시간 갱신)마다 이벤트가 와서
