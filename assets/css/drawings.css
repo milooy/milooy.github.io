@@ -1,107 +1,271 @@
-/* Drawings: 스프링 달린 스케치북 위에 테이프로 붙인 그림들 */
-.sketchbook {
-  /* 스케치북 종이는 다크 모드에서도 밝은 종이로 둔다 */
-  --sheet: #fdfcf8;
-  --sheet-ink: #22201c;
-  --sheet-soft: #6e6a62;
-  --tape: rgb(222 205 160 / 0.7);
+/* Drawings: 현대미술 갤러리. 넓은 벽에 크고 작은 액자를 여백을 넉넉히 두고 건다. 세로로 스크롤한다.
+ * 그림 폭은 크기(s/m/l)와 가로세로 비율로 정해서, 같은 크기면 세로 그림도 가로 그림도 비슷한 넓이로 보인다.
+ * 액자는 black/white/wood/none을 섞는다. 다크 모드는 문 닫은 뒤의 전시장: 벽이 어둡고 그림마다 조명. */
+.gallery {
+  --wall: #eeebe5;
+  --wall-ink: #2a2724;
+  --wall-soft: #7a746c;
+  --floor: #d3cdc2;
+  --baseboard: #c2bbae;
+  --spot: rgb(255 253 246 / 0.8);
+  --placard: #fcfbf8;
+  --mat: #fbfaf6;
+  /* 액자 재료 색. 모양(두께·매트)은 모두 같고 색만 다르다 */
+  --frame-black: #1c1b1a;
+  --frame-white: #f7f6f2;
+  --frame-wood: linear-gradient(135deg, #b8956b, #9c7a52 50%, #ae8c62);
+  --floor-h: 72px;
   position: relative;
-  padding: var(--space-8) var(--space-6) var(--space-6);
-  border-radius: 6px;
-  background: var(--sheet);
-  color: var(--sheet-ink);
-  box-shadow:
-    0 1px 0 rgb(0 0 0 / 0.06),
-    0 14px 30px -18px rgb(0 0 0 / 0.35);
+  /* 다가갈 때 커진 벽이 페이지를 넓히지 않게 */
+  overflow: clip;
+  background: var(--wall);
+  color: var(--wall-ink);
 }
 
-/* 위쪽 스프링 */
-.sketchbook::before {
+@media (prefers-color-scheme: dark) {
+  .gallery {
+    --wall: #252320;
+    --wall-ink: #ece8e0;
+    --wall-soft: #9a948a;
+    --floor: #141312;
+    --baseboard: #0e0d0c;
+    --spot: rgb(255 238 205 / 0.2);
+    --placard: #2e2c29;
+    /* 어두운 전시장: 검정은 벽보다 더 검게, 흰색·나무는 조명이 약한 듯 톤을 낮춰 서로 튀지 않게 */
+    --mat: #e9e5dc;
+    --frame-black: #0a0908;
+    --frame-white: #d6d2c9;
+    --frame-wood: linear-gradient(135deg, #7f6548, #664f36 50%, #765d42);
+  }
+}
+
+/* 벽 전체. 다가갈 때는 이걸 옮기고 키운다. 맨 아래는 바닥 */
+.gallery-camera {
+  position: relative;
+  padding: var(--space-4) max(6vw, 16px) calc(var(--floor-h) + var(--space-6));
+  background: linear-gradient(
+    to bottom,
+    var(--wall) calc(100% - var(--floor-h)),
+    var(--baseboard) calc(100% - var(--floor-h))
+      calc(100% - var(--floor-h) + 4px),
+    var(--floor) calc(100% - var(--floor-h) + 4px)
+  );
+  transform-origin: 0 0;
+  transition: transform 0.8s var(--ease);
+}
+
+.gallery-camera > * {
+  max-width: 1160px;
+  margin-inline: auto;
+}
+
+/* 해가 바뀌는 자리의 연도. 작게, 가는 선과 함께 */
+.year-mark {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block: clamp(40px, 7vh, 80px) 0;
+  color: var(--wall-soft);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+}
+
+.year-mark::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: color-mix(in srgb, var(--wall-ink) 12%, transparent);
+}
+
+/* 벽 폭을 기준(cqi)으로 줄 높이와 액자 두께를 잡아, 화면 폭이 바뀌어도 배치가 그대로 줄고 는다 */
+.hang {
+  --scale: 1;
+  container-type: inline-size;
+}
+
+/* 한 줄: 같은 높이로, 가운데 선에 맞춰, 같은 간격으로. 줄 높이(--h)는 줄마다 다르다 */
+.hang-row {
+  --row-h: calc(var(--h) * var(--scale) * 100cqi);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-6) 4cqi;
+  margin-block: clamp(36px, 6vh, 72px);
+}
+
+/* min-content: 그림 폭은 액자가 정하고, 명패가 길면 그 폭 안에서 줄바꿈한다 */
+.work {
+  --edge: calc(var(--row-h) * (var(--pad) + var(--bw)));
+  position: relative;
+  flex: none;
+  width: min-content;
+  margin: 0;
+  isolation: isolate;
+  transition: opacity 0.6s var(--ease);
+}
+
+/* 천장 조명이 그림 위로 떨어진다 */
+.work::before {
   content: "";
   position: absolute;
-  inset: -10px var(--space-5) auto;
-  height: 26px;
-  background: radial-gradient(
-      circle at 50% 70%,
-      transparent 5px,
-      var(--sheet-soft) 5.5px 7px,
-      transparent 7.5px
-    )
-    0 0 / 26px 26px repeat-x;
-  opacity: 0.7;
-}
-
-.drawing-list {
-  columns: 3 240px;
-  column-gap: var(--space-6);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.drawing {
-  break-inside: avoid;
-  margin-bottom: var(--space-6);
-  transform: rotate(var(--tilt, 0deg));
-  transition: transform var(--quick) var(--ease);
-}
-
-.drawing:hover,
-.drawing:focus-within {
-  transform: rotate(0deg) scale(1.02);
-}
-
-.drawing figure {
-  position: relative;
-  margin: 0;
-  padding: var(--space-3) var(--space-3) var(--space-2);
-  background: #fff;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 0.12);
-}
-
-/* 테이프 */
-.drawing figure::before {
-  content: "";
-  position: absolute;
-  top: -10px;
+  z-index: -1;
   left: 50%;
-  width: 72px;
-  height: 22px;
+  top: -8cqi;
+  width: calc(100% + 10cqi);
+  height: calc(100% + 12cqi);
   translate: -50% 0;
-  rotate: -3deg;
-  background: var(--tape);
+  background: radial-gradient(
+    ellipse 50% 52% at 50% 46%,
+    var(--spot),
+    transparent 72%
+  );
+  pointer-events: none;
 }
 
-.drawing-open {
+.frame {
   display: block;
+  width: fit-content;
+  padding: calc(var(--row-h) * var(--pad));
+  border: calc(var(--row-h) * var(--bw)) solid transparent;
   cursor: zoom-in;
+  box-shadow:
+    0 14px 26px -10px rgb(0 0 0 / 0.38),
+    0 2px 5px rgb(0 0 0 / 0.14);
 }
 
-.drawing img {
+/* 그림 높이 = 줄 높이. 화면보다 넓으면 줄인다 */
+.frame img {
   display: block;
-  width: 100%;
+  width: calc(var(--row-h) * var(--ratio));
+  max-width: calc(100cqi - 2 * var(--edge));
   height: auto;
 }
 
-.drawing figcaption,
-.viewer figcaption {
-  display: flex;
-  flex-direction: column;
-  padding-top: var(--space-2);
+/* 액자는 모두 같은 모양: 테두리 2%, 매트 8% (줄 높이 기준). 템플릿의 EDGE(0.1)와 같다 */
+.work {
+  --pad: 0.08;
+  --bw: 0.02;
+}
+
+.frame-black .frame,
+.frame-white .frame,
+.frame-wood .frame {
+  background: var(--mat);
+  box-shadow:
+    inset 0 0 0 1px rgb(0 0 0 / 0.08),
+    0 14px 26px -10px rgb(0 0 0 / 0.38),
+    0 2px 5px rgb(0 0 0 / 0.14);
+}
+
+.frame-black .frame {
+  border-color: var(--frame-black);
+}
+
+.frame-white .frame {
+  border-color: var(--frame-white);
+}
+
+.frame-wood .frame {
+  border-image: var(--frame-wood) 1;
+}
+
+/* 액자 없이 캔버스째 */
+.frame-none {
+  --pad: 0;
+  --bw: 0;
+}
+
+.frame-none .frame {
+  box-shadow:
+    4px 4px 0 rgb(0 0 0 / 0.12),
+    0 18px 30px -10px rgb(0 0 0 / 0.42);
+}
+
+/* 명패: 그림 아래 조그맣게 */
+.placard {
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 10px;
+  padding: 7px 11px 8px;
+  background: var(--placard);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.14);
+  color: var(--wall-ink);
+  font-size: 11.5px;
   line-height: 1.5;
 }
 
-.drawing-title {
-  font-family: var(--font-display);
-  font-size: 16px;
+.placard > span {
+  display: block;
 }
 
-.drawing-meta {
-  color: var(--sheet-soft);
-  font-size: 13px;
+.placard-title {
+  font-size: 12.5px;
+  font-weight: 600;
 }
 
-/* 크게 보기 */
+.placard-meta {
+  color: var(--wall-soft);
+}
+
+/* 다가가서 보는 중: 나머지는 어둑하게 */
+.gallery.is-zoomed .frame {
+  cursor: zoom-out;
+}
+
+.gallery.is-zoomed .work:not(.is-near),
+.gallery.is-zoomed .year-mark {
+  opacity: 0.25;
+}
+
+.gallery-note {
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 3svh;
+  max-width: min(560px, calc(100% - 32px));
+  padding: 10px 14px;
+  translate: -50% 0;
+  background: var(--placard);
+  color: var(--wall-ink);
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+
+.gallery-note p {
+  margin: 0;
+}
+
+.gallery.is-zoomed .gallery-note:not(:empty) {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-camera {
+    transition: none;
+  }
+}
+
+/* 폰: 그림을 키운다. 한 줄에 다 안 들어가면 다음 줄로 넘어가 가운데 선을 지킨다 */
+@media (max-width: 720px) {
+  .hang {
+    --scale: 1.7;
+  }
+
+  .hang-row {
+    gap: var(--space-5) 5cqi;
+    margin-block: var(--space-6);
+  }
+
+  .placard {
+    font-size: 11px;
+  }
+}
+
+/* B컷 크게 보기 */
 .viewer {
   width: min(92vw, 900px);
   max-height: 92vh;
@@ -128,13 +292,11 @@
   background: #fff;
 }
 
-.viewer-story {
-  font-size: 15px;
-  color: #4a463f;
-}
-
-.viewer-story p {
-  margin: var(--space-2) 0 0;
+.viewer figcaption {
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--space-2);
+  line-height: 1.5;
 }
 
 .viewer-nav {
@@ -170,17 +332,32 @@
   font-size: 24px;
 }
 
-/* B컷 휴지통 */
+/* B컷 휴지통: 오른쪽 아래 구석에 늘 떠 있다. 누르면 위로 판이 열리며 구겨진 종이가 쏟아진다 */
 .trash {
-  margin-top: var(--space-8);
+  position: fixed;
+  z-index: 20;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  transition: opacity 0.4s var(--ease);
+}
+
+/* 그림 앞으로 다가가 있는 동안은 숨는다 */
+.gallery.is-zoomed ~ .trash {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .trash > summary {
+  position: relative;
   display: grid;
-  grid-template-columns: 150px 1fr;
-  align-items: end;
-  gap: var(--space-5);
-  width: fit-content;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink-soft);
+  box-shadow: 0 6px 18px -6px rgb(0 0 0 / 0.35);
   cursor: pointer;
   list-style: none;
 }
@@ -189,20 +366,21 @@
   display: none;
 }
 
-.trash-can {
-  color: var(--ink-soft);
+.trash > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .trash-can svg {
   display: block;
-  width: 100%;
+  width: 52px;
   height: auto;
   transform-origin: 30% 94%;
   transition: rotate 0.4s var(--ease);
 }
 
 .trash:not([open]) > summary:hover .trash-can svg {
-  rotate: -6deg;
+  rotate: -8deg;
 }
 
 /* 열면 휴지통이 엎어진다 */
@@ -210,46 +388,72 @@
   rotate: -28deg;
 }
 
-.trash-label {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-bottom: var(--space-3);
+/* 몇 장 들었는지 */
+.trash-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 22px;
+  padding: 1px 6px;
+  border-radius: 11px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
 }
 
-.trash-label strong {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: normal;
+.trash-panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 12px);
+  width: min(560px, calc(100vw - 32px));
+  max-height: min(70svh, 640px);
+  overflow: auto;
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 18px 40px -12px rgb(0 0 0 / 0.45);
+  transform-origin: 100% 100%;
+  animation: spill 0.35s var(--ease);
+}
+
+@keyframes spill {
+  from {
+    opacity: 0;
+    scale: 0.85;
+  }
+}
+
+.trash-head {
+  padding-inline: var(--space-2);
+}
+
+.trash-head h2 {
+  margin: 2px 0 0;
+  font-size: 24px;
 }
 
 .trash-count {
+  margin: 2px 0 0;
   color: var(--ink-soft);
-}
-
-.trash-toggle {
-  margin-top: var(--space-2);
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.trash[open] .when-closed,
-.trash:not([open]) .when-open {
-  display: none;
+  font-size: 14px;
 }
 
 .crumpled-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: var(--space-6) 0 0;
-  padding: var(--space-4) 0;
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) 0;
   list-style: none;
 }
 
 /* 구겨진 종이: 가장자리가 울퉁불퉁하고 색이 바랬다. 올리면 펴지면서 색이 돌아온다 */
-.drawing.crumpled {
+.crumpled {
   --flat: polygon(
     0 0,
     25% 0,
@@ -287,9 +491,10 @@
   margin: 0 -4px var(--space-3);
   filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.2));
   transform: translateY(var(--drop, 0)) rotate(var(--tilt, 0deg));
+  transition: transform var(--quick) var(--ease);
 }
 
-.drawing.crumpled:nth-child(3n + 2) {
+.crumpled:nth-child(3n + 2) {
   --crumple: polygon(
     0 2%,
     28% 4%,
@@ -308,7 +513,7 @@
   );
 }
 
-.drawing.crumpled:nth-child(3n) {
+.crumpled:nth-child(3n) {
   --crumple: polygon(
     5% 0,
     26% 3%,
@@ -328,9 +533,11 @@
 }
 
 .crumpled figure {
+  position: relative;
+  margin: 0;
   padding: 6px 6px 4px;
   background: #f1ede4;
-  box-shadow: none;
+  color: #22201c;
   clip-path: var(--crumple);
   transition:
     clip-path var(--quick) var(--ease),
@@ -338,11 +545,7 @@
   filter: grayscale(0.75) sepia(0.15) brightness(0.97);
 }
 
-/* 테이프 대신 구김 자국 */
-.crumpled figure::before {
-  display: none;
-}
-
+/* 구김 자국 */
 .crumpled figure::after {
   content: "";
   position: absolute;
@@ -374,20 +577,33 @@
   transition: opacity var(--quick) var(--ease);
 }
 
-.crumpled figcaption {
-  padding-top: 2px;
+.crumpled-open {
+  display: block;
+  cursor: zoom-in;
 }
 
-.crumpled .drawing-title {
+.crumpled img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.crumpled figcaption {
+  padding-top: 2px;
+  line-height: 1.5;
+}
+
+.crumpled .crumpled-title {
   display: none;
 }
 
-.crumpled .drawing-meta {
+.crumpled-meta {
+  color: #6e6a62;
   font-size: 11px;
 }
 
-.drawing.crumpled:hover,
-.drawing.crumpled:focus-within {
+.crumpled:hover,
+.crumpled:focus-within {
   z-index: 1;
   transform: translateY(var(--drop, 0)) rotate(0deg) scale(1.25);
 }
@@ -404,16 +620,16 @@
 }
 
 @media (max-width: 640px) {
-  .sketchbook {
-    padding: var(--space-7) var(--space-4) var(--space-4);
-  }
-
   .trash > summary {
-    grid-template-columns: 110px 1fr;
-    gap: var(--space-4);
+    width: 60px;
+    height: 60px;
   }
 
-  .drawing.crumpled {
-    width: 104px;
+  .trash-can svg {
+    width: 44px;
+  }
+
+  .crumpled {
+    width: 96px;
   }
 }

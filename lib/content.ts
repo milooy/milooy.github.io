@@ -3,6 +3,7 @@
 import fs from "node:fs"
 import path from "node:path"
 import YAML from "yaml"
+import { imageSize } from "./image-size.ts"
 import { render, type TocItem } from "./markdown.ts"
 
 const CONTENT = path.resolve("content")
@@ -67,11 +68,18 @@ export type Toy = {
   html: string
 }
 
+export const DRAWING_SIZES = ["s", "m", "l"] as const
+export const FRAMES = ["black", "wood", "white", "none"] as const
+
 export type Drawing = {
   slug: string
   title: string
   date: string
   image: string
+  width: number
+  height: number
+  size?: (typeof DRAWING_SIZES)[number] // 갤러리 벽에 걸리는 크기. 없으면 알아서 섞는다
+  frame?: (typeof FRAMES)[number] // 액자. 없으면 알아서 섞는다
   medium?: string
   html: string
 }
@@ -177,6 +185,20 @@ const asset = (doc: Doc, dir: string, key: string, required = false) => {
   if (value && !fs.existsSync(path.join(CONTENT, dir, value)))
     fail(doc, `\`${key}\`에 적은 파일(${value})이 ${dir}/에 없다`)
   return value
+}
+
+const oneOf = <T extends string>(
+  doc: Doc,
+  key: string,
+  values: readonly T[],
+) => {
+  const value = str(doc, key)
+  if (value && !values.includes(value as T))
+    fail(
+      doc,
+      `\`${key}\`는 ${values.join(", ")} 중 하나여야 한다 (지금: ${value})`,
+    )
+  return value as T | undefined
 }
 
 const url = (doc: Doc, key: string, required = false) => {
@@ -304,11 +326,19 @@ export const loadDrawings = (): Drawing[] =>
   readDir("drawings")
     .map(doc => {
       const image = asset(doc, "drawings", "image", true) ?? ""
+      const dims = image
+        ? imageSize(path.join(CONTENT, "drawings", image))
+        : undefined
+      if (image && !dims) fail(doc, `\`image\`(${image})의 크기를 읽지 못했다`)
       return {
         slug: doc.slug,
         title: str(doc, "title", true) ?? doc.slug,
         date: date(doc, "date").date,
         image,
+        width: dims?.width ?? 1,
+        height: dims?.height ?? 1,
+        size: oneOf(doc, "size", DRAWING_SIZES),
+        frame: oneOf(doc, "frame", FRAMES),
         medium: str(doc, "medium"),
         html: render(doc.body).html,
       }
