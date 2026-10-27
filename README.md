@@ -16,7 +16,7 @@ main에 push하면 GitHub Actions가 빌드해서 GitHub Pages에 올린다.
 
 | 무엇        | 어디에                                       | frontmatter                                                                                      |
 | ----------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| 블로그 글   | `content/posts/<slug>.md`                    | `title`, `date`, `tags` (+ `description`, `draft`)                                               |
+| 블로그 글   | `content/posts/<slug>.md`                    | `title`, `date`, `tags` (+ `description`, `draft`, `pinned`)                                     |
 | 조각글      | `content/notes/<YYYY-MM-DD-HHmm>.md`         | `date` (+ `title`, `link`, `image`)                                                              |
 | 책          | `content/books/<slug>.md`                    | `title`, `rating`(0.5~5), `readAt`(YYYY 또는 YYYY-MM) (+ `author`, `review`)                     |
 | 그림        | `content/drawings/<slug>.md` + 그림 파일     | `title`, `date`, `image`(옆 파일 이름) (+ `medium`, `size` s·m·l, `frame` black·white·wood·none) |
@@ -38,6 +38,7 @@ description: 한 줄 설명
 ```
 
 - `draft: true`인 글은 `npm run dev`에서만 보인다.
+- `pinned: true`인 글은 Blog 전체 목록 맨 위 「고정」에 따로 보인다.
 - frontmatter 형식이 틀리면 빌드가 파일 이름과 필드를 알려주고 멈춘다.
 - 옛 주소를 옮길 때는 `content/redirects.yaml`에 `"옛 주소": "새 주소"`를 적는다.
 
