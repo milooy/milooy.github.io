@@ -38,7 +38,7 @@ import {
 } from "./templates/pages.ts"
 import { resumePage } from "./templates/resume.ts"
 import { songsPage } from "./templates/songs.ts"
-import { toysPage } from "./templates/toys.ts"
+import { hasStory, toyPage, toyPath, toysPage } from "./templates/toys.ts"
 
 const OUT = path.resolve(process.env.OUT_DIR ?? "dist")
 const started = performance.now()
@@ -93,6 +93,7 @@ write("/books/", booksPage(ctx, books))
 write("/drawings/", drawingsPage(ctx, drawings, bcuts))
 write("/songs/", songsPage(ctx, songs))
 write("/toys/", toysPage(ctx, toys))
+for (const toy of toys.filter(hasStory)) write(toyPath(toy), toyPage(ctx, toy))
 if (resume) write("/resume/", resumePage(ctx, resume))
 for (const page of pages) write(`/${page.slug}/`, standalonePage(ctx, page))
 write("/404.html", notFoundPage(ctx))

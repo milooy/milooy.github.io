@@ -1,0 +1,2 @@
+<!-- 임시 그림. 홈 혼잣말 대사창 테두리. 늘어나도 선 굵기는 그대로다. TODO: 손그림으로 교체 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path vector-effect="non-scaling-stroke" d="M2 5C80 2.5 200 6 297 3.5M295.5 1.5C297 20 294.5 40 296.5 58M298 55.5C200 58 100 54 3.5 56.5M5 58.5C3 40 5.5 20 3.5 2"/></svg>

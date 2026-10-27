@@ -13,12 +13,13 @@ export const homePage = (ctx: BuildContext, posts: Post[], notes: Note[]) =>
     path: "/",
     mode: "showcase",
     styles: ["/assets/css/home.css", ...READING_STYLES],
+    scripts: ["/assets/js/home.js"],
     body: html`<section class="hero">
         <div class="hero-drawing">
           ${drawing("home", "노트북, 깃발, 붓, 책이 놓인 책상")}
         </div>
         <h1>${site.title}</h1>
-        <p>${site.summary}</p>
+        ${saying()}
       </section>
       <div class="reading">
         <section class="home-section">
@@ -36,6 +37,21 @@ export const homePage = (ctx: BuildContext, posts: Post[], notes: Note[]) =>
         </section>
       </div>`,
   })
+
+// 이름 밑 혼잣말. 스크립트가 없으면 첫 마디만 보인다 (assets/js/home.js)
+const saying = () =>
+  html`<button
+    type="button"
+    class="saying"
+    data-sayings="${JSON.stringify(site.sayings)}"
+  >
+    <span class="saying-frame">${drawing("saying-box")}</span>
+    <span class="saying-text">
+      <span class="saying-full">${site.sayings[0]}</span>
+      <span class="saying-typed" aria-hidden="true"></span>
+    </span>
+    <span class="saying-next">${drawing("next", "다음 말")}</span>
+  </button>`
 
 // 홈에서는 제목을 눌러 조각글 타임라인의 그 자리로 간다
 const noteItem = (note: Note, linkTitle = false) =>
@@ -88,7 +104,7 @@ export const notesPage = (ctx: BuildContext, notes: Note[]) => {
     body: html`<div class="reading">
       <header class="page-head">
         <h1>Notes</h1>
-        <p class="lede">글이 되기 전의 조각들.</p>
+        <p class="lede">포슬포슬 굽다 만 조각</p>
       </header>
       ${[...byYear].map(
         ([year, items]) =>

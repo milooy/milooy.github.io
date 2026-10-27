@@ -97,18 +97,3 @@
   font-weight: 600;
   text-decoration: none;
 }
-
-.toy details {
-  margin-top: var(--space-3);
-  font-size: 15px;
-}
-
-.toy summary {
-  color: var(--ink-soft);
-  cursor: pointer;
-}
-
-.toy .prose {
-  margin-top: var(--space-2);
-  font-size: 15px;
-}

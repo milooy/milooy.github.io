@@ -24,9 +24,108 @@
   margin: 0;
 }
 
-.hero p {
-  margin: var(--space-2) 0 0;
+/* 이름 밑 혼잣말. 게임 대사처럼 한 글자씩 찍히고, ▼를 누르면 다음 말 */
+.saying {
+  position: relative;
+  display: inline-block;
+  max-width: min(100%, 440px);
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-6);
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left;
+  cursor: pointer;
+}
+
+.saying-frame {
+  position: absolute;
+  inset: 0;
   color: var(--ink-soft);
+  pointer-events: none;
+}
+
+.saying-frame svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 다 찍힌 문장(투명)이 자리를 먼저 잡아서, 찍는 동안 상자가 늘어나지 않는다 */
+.saying-text {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  column-gap: 0.25em;
+}
+
+.saying-text::before,
+.saying-text::after {
+  grid-row: 1;
+  color: var(--ink-soft);
+  font-family: var(--font-display);
+}
+
+.saying-text::before {
+  content: "“";
+  grid-column: 1;
+}
+
+.saying-text::after {
+  content: "”";
+  grid-column: 3;
+}
+
+.saying-full,
+.saying-typed {
+  grid-area: 1 / 2;
+}
+
+.saying-full {
+  color: transparent;
+}
+
+/* 게임 대사창처럼 오른쪽 아래 구석에 떠 있다. 글자 흐름 밖이라 문장은 상자 한가운데 온다.
+   손그림 테두리가 상자 끝보다 조금 안쪽에 그려져서, 그 선까지의 거리가 오른쪽·아래 같도록 맞춘 값 */
+.saying-next {
+  position: absolute;
+  right: 12.5px;
+  bottom: 12.5px;
+  color: var(--ink-soft);
+}
+
+.saying-next svg {
+  display: block;
+  width: 8px;
+  height: auto;
+  opacity: 0.35;
+  transition: opacity var(--quick) var(--ease);
+  animation: saying-blink 1.6s steps(1) infinite;
+}
+
+.saying:hover .saying-next svg,
+.saying:focus-visible .saying-next svg {
+  opacity: 1;
+  color: var(--accent);
+  animation: saying-bob 0.6s var(--ease) infinite alternate;
+}
+
+.saying.is-typing .saying-next {
+  visibility: hidden;
+}
+
+@keyframes saying-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes saying-bob {
+  to {
+    transform: translateY(2px);
+  }
 }
 
 .home-section h2 {

@@ -1,8 +1,15 @@
 export const site = {
   title: "Yurim Jin",
-  description:
-    "개발하고, 팀을 이끌고, 그림 그리고 노래하고, 책 읽는 Yurim Jin의 블로그",
-  summary: "테니스치다 손목 삔, 풋살하다 인대 나간 개발자",
+  description: "진유림의 개발 이야기와 사는 이야기",
+  // 홈에서 이름 밑 혼잣말. 누를 때마다 다음 말이 한 글자씩 찍힌다
+  sayings: [
+    "테니스치다 손목 삔, 풋살하다 인대 나간 개발자",
+    "뭉치면 주먹밥, 흩어지면 볶음밥",
+    "Despite everything, it's still you",
+    "빈 손이지만 선의로 가득 찬 마음",
+    "삶은 여행 (Boiled voyage)",
+    "의리, 다정, 사랑",
+  ],
   url: "https://milooy.github.io",
   lang: "ko",
   github: "https://github.com/milooy",
@@ -16,12 +23,12 @@ export const site = {
     categoryId: "DIC_kwDOGZx9T84DJvsO",
   },
   nav: [
+    { href: "/resume/", label: "Resume" },
     { href: "/blog/", label: "Blog" },
     { href: "/notes/", label: "Notes" },
     { href: "/books/", label: "Books" },
     { href: "/drawings/", label: "Drawings" },
     { href: "/songs/", label: "Songs" },
     { href: "/toys/", label: "Toys" },
-    { href: "/resume/", label: "Resume" },
   ],
 }
