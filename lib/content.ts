@@ -15,6 +15,7 @@ export type Post = {
   tags: string[]
   description: string
   draft: boolean
+  pinned: boolean // Blog 목록 맨 위에 고정
   html: string
   toc: TocItem[]
   readingMinutes: number
@@ -222,6 +223,7 @@ export const loadPosts = (includeDrafts: boolean): Post[] =>
         tags: Array.isArray(tags) ? tags.map(t => String(t).toLowerCase()) : [],
         description: str(doc, "description") ?? `${text.slice(0, 120)}…`,
         draft: doc.data.draft === true,
+        pinned: doc.data.pinned === true,
         html,
         toc,
         // 한글 기준 분당 500자

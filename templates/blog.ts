@@ -23,36 +23,41 @@ const tagLinks = (tags: string[]) =>
     ${tags.map(tag => html`<li><a href="${tagPath(tag)}">#${tag}</a></li>`)}
   </ul>`
 
+const postItem = (post: Post) =>
+  html`<li>
+    <time datetime="${post.date}">${formatDate(post.date).slice(5)}</time>
+    <div>
+      <a class="post-title" href="${postPath(post)}">${post.title}</a>
+      ${post.draft ? html`<span class="draft">초안</span>` : ""}
+      <p>${post.description}</p>
+      ${tagLinks(post.tags)}
+    </div>
+  </li>`
+
+const postSection = (heading: string, posts: Post[]) =>
+  html`<section class="year">
+    <h2>${heading}</h2>
+    <ol class="post-list">
+      ${posts.map(postItem)}
+    </ol>
+  </section>`
+
 export const postList = (posts: Post[]) => {
   const byYear = new Map<string, Post[]>()
   for (const post of posts) {
     const year = post.date.slice(0, 4)
     byYear.set(year, [...(byYear.get(year) ?? []), post])
   }
-  return [...byYear].map(
-    ([year, items]) =>
-      html`<section class="year">
-        <h2>${year}</h2>
-        <ol class="post-list">
-          ${items.map(
-            post =>
-              html`<li>
-                <time datetime="${post.date}"
-                  >${formatDate(post.date).slice(5)}</time
-                >
-                <div>
-                  <a class="post-title" href="${postPath(post)}"
-                    >${post.title}</a
-                  >
-                  ${post.draft ? html`<span class="draft">초안</span>` : ""}
-                  <p>${post.description}</p>
-                  ${tagLinks(post.tags)}
-                </div>
-              </li>`,
-          )}
-        </ol>
-      </section>`,
-  )
+  return [...byYear].map(([year, items]) => postSection(year, items))
+}
+
+// 전체 목록에서는 고정한 글(pinned)을 맨 위에 따로 모으고, 아래 연도별 목록에서는 뺀다.
+// 태그로 거른 목록은 날짜 순서 그대로 둔다.
+const pinnedFirst = (posts: Post[]) => {
+  const pinned = posts.filter(p => p.pinned)
+  return html`${pinned.length ? postSection("고정", pinned) : ""}${postList(
+    posts.filter(p => !p.pinned),
+  )}`
 }
 
 export const blogIndex = (
@@ -98,7 +103,7 @@ export const blogIndex = (
           )}
         </ul>
       </nav>
-      ${postList(shown)}
+      ${activeTag ? postList(shown) : pinnedFirst(shown)}
     </div>`,
   })
 }
