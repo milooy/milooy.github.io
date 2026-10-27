@@ -59,6 +59,16 @@ const noteItem = (note: Note, linkTitle = false) =>
       }
       ${note.description ? html`<p class="note-desc">${note.description}</p>` : ""}
       <div class="prose">${raw(note.html)}</div>
+      ${
+        note.image
+          ? html`<img
+              class="note-image"
+              src="${note.image}"
+              alt=""
+              loading="lazy"
+            />`
+          : ""
+      }
       ${note.link ? html`<p><a href="${note.link}">${note.link}</a></p>` : ""}
     </div>
   </li>`

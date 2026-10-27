@@ -14,12 +14,16 @@ main에 push하면 GitHub Actions가 빌드해서 GitHub Pages에 올린다.
 
 ## 글쓰기
 
-| 무엇        | 어디에                               | frontmatter                                                                  |
-| ----------- | ------------------------------------ | ---------------------------------------------------------------------------- |
-| 블로그 글   | `content/posts/<slug>.md`            | `title`, `date`, `tags` (+ `description`, `draft`)                           |
-| 조각글      | `content/notes/<YYYY-MM-DD-HHmm>.md` | `date` (+ `title`, `link`)                                                   |
-| 책          | `content/books/<slug>.md`            | `title`, `rating`(0.5~5), `readAt`(YYYY 또는 YYYY-MM) (+ `author`, `review`) |
-| 단독 페이지 | `content/pages/<slug>.md`            | `title` (+ `description`)                                                    |
+| 무엇        | 어디에                                     | frontmatter                                                                  |
+| ----------- | ------------------------------------------ | ---------------------------------------------------------------------------- |
+| 블로그 글   | `content/posts/<slug>.md`                  | `title`, `date`, `tags` (+ `description`, `draft`)                           |
+| 조각글      | `content/notes/<YYYY-MM-DD-HHmm>.md`       | `date` (+ `title`, `link`, `image`)                                          |
+| 책          | `content/books/<slug>.md`                  | `title`, `rating`(0.5~5), `readAt`(YYYY 또는 YYYY-MM) (+ `author`, `review`) |
+| 그림        | `content/drawings/<slug>.md` + 그림 파일   | `title`, `date`, `image`(옆 파일 이름) (+ `medium`)                          |
+| 노래        | `content/songs/<slug>.md`                  | `title`, `artist`, `date`, `soundcloud` (+ `duration`, `cover`)              |
+| 토이        | `content/toys/<slug>.md` (+ 미리보기 파일) | `title`, `year`, `summary`, `url` (+ `repo`, `stack`, `preview`)             |
+| 이력서      | `content/resume.md`                        | `title` (+ `description`). 접는 항목은 `<details>`, 태그는 `<small>`         |
+| 단독 페이지 | `content/pages/<slug>.md`                  | `title` (+ `description`)                                                    |
 
 ```md
 ---

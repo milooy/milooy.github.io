@@ -6,10 +6,14 @@ import path from "node:path"
 import {
   assertValid,
   loadBooks,
+  loadDrawings,
   loadNotes,
   loadPages,
   loadPosts,
   loadRedirects,
+  loadResume,
+  loadSongs,
+  loadToys,
 } from "./lib/content.ts"
 import { rss, sitemap } from "./lib/feed.ts"
 import { toString, type Html } from "./lib/html.ts"
@@ -21,6 +25,7 @@ import {
   tagPath,
 } from "./templates/blog.ts"
 import { booksPage } from "./templates/books.ts"
+import { drawingsPage } from "./templates/drawings.ts"
 import type { BuildContext } from "./templates/layout.ts"
 import {
   homePage,
@@ -29,6 +34,9 @@ import {
   redirectPage,
   standalonePage,
 } from "./templates/pages.ts"
+import { resumePage } from "./templates/resume.ts"
+import { songsPage } from "./templates/songs.ts"
+import { toysPage } from "./templates/toys.ts"
 
 const OUT = path.resolve("dist")
 const started = performance.now()
@@ -38,12 +46,23 @@ const posts = loadPosts(ctx.dev)
 const notes = loadNotes()
 const pages = loadPages()
 const books = loadBooks(new Set(posts.map(p => p.slug)))
+const resume = loadResume()
+const toys = loadToys()
+const drawings = loadDrawings()
+const songs = loadSongs()
 const redirects = loadRedirects()
 assertValid()
 
 fs.rmSync(OUT, { recursive: true, force: true })
 fs.cpSync("static", OUT, { recursive: true })
 fs.cpSync("assets", path.join(OUT, "assets"), { recursive: true })
+// md 옆에 둔 그림·미리보기 파일은 같은 이름의 주소로 복사한다
+// TODO: Drawings 원본은 두고, 웹용 크기로 줄인 사본을 만든다
+for (const dir of ["drawings", "toys"])
+  fs.cpSync(path.join("content", dir), path.join(OUT, dir), {
+    recursive: true,
+    filter: src => !src.endsWith(".md"),
+  })
 
 const written = new Set<string>()
 const write = (urlPath: string, content: Html | string) => {
@@ -68,6 +87,10 @@ posts.forEach((post, i) =>
 )
 write("/notes/", notesPage(ctx, notes))
 write("/books/", booksPage(ctx, books))
+write("/drawings/", drawingsPage(ctx, drawings))
+write("/songs/", songsPage(ctx, songs))
+write("/toys/", toysPage(ctx, toys))
+if (resume) write("/resume/", resumePage(ctx, resume))
 for (const page of pages) write(`/${page.slug}/`, standalonePage(ctx, page))
 write("/404.html", notFoundPage(ctx))
 
@@ -90,5 +113,6 @@ for (const [from, to] of Object.entries(redirects)) {
 const ms = Math.round(performance.now() - started)
 console.log(
   `빌드 완료 ${ms}ms · 글 ${posts.length} · 조각글 ${notes.length} · 책 ${books.length} · ` +
+    `그림 ${drawings.length} · 노래 ${songs.length} · 토이 ${toys.length} · ` +
     `리다이렉트 ${Object.keys(redirects).length - skipped}${ctx.dev ? " · dev" : ""}`,
 )

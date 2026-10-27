@@ -1,0 +1,197 @@
+/* Songs: 플레이리스트 구조만 빌리고, 개성은 직접 그린 커버로 */
+.playlist-head {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--space-6);
+  align-items: end;
+  margin-bottom: var(--space-6);
+}
+
+/* TODO: 직접 그린 커버로 교체 */
+.playlist-cover {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: #2f4858;
+  color: #f3ecdc;
+  box-shadow: 0 14px 30px -18px rgb(0 0 0 / 0.5);
+}
+
+.playlist-cover svg {
+  width: 70%;
+  height: auto;
+}
+
+.playlist-info h1 {
+  font-size: clamp(32px, 6vw, 44px);
+  margin: 0;
+}
+
+.playlist-by {
+  margin: 0;
+  color: var(--accent);
+  font-size: 17px;
+}
+
+.playlist-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  font-size: 15px;
+}
+
+.play-all {
+  padding: var(--space-2) var(--space-5);
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.player {
+  display: grid;
+  place-items: center;
+  min-height: 166px;
+  margin-bottom: var(--space-5);
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.player:has(iframe) {
+  border: 0;
+}
+
+.player iframe {
+  width: 100%;
+  height: 166px;
+  border: 0;
+}
+
+.tracklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: 2em 44px 1fr auto 3.5em;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2);
+  border-bottom: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.track:hover {
+  background: var(--code-bg);
+}
+
+.track-no,
+.track-date,
+.track-duration {
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.track-no {
+  text-align: center;
+}
+
+.track-duration {
+  text-align: right;
+}
+
+.track-cover {
+  width: 44px;
+  height: 44px;
+  border-radius: 3px;
+  object-fit: cover;
+  background: #2f4858;
+}
+
+.track-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.45;
+}
+
+.track-title {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* 제목을 누르면 줄 전체를 누른 셈 */
+.track {
+  position: relative;
+}
+
+.track-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.track-artist {
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.track-note {
+  position: relative;
+  z-index: 1;
+  font-size: 14px;
+}
+
+.track-note summary {
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.track[aria-current="true"] .track-no {
+  color: var(--accent);
+  font-size: 0;
+}
+
+.track[aria-current="true"] .track-no::before {
+  content: "♪";
+  font-size: 16px;
+}
+
+.track[aria-current="true"] .track-title {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .playlist-head {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .playlist-cover {
+    max-width: 220px;
+  }
+
+  .track {
+    grid-template-columns: 1.5em 40px 1fr 3em;
+  }
+
+  .track-cover {
+    width: 40px;
+    height: 40px;
+  }
+
+  .track-date {
+    display: none;
+  }
+}

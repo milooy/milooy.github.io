@@ -19,5 +19,9 @@ export const site = {
     { href: "/blog/", label: "Blog" },
     { href: "/notes/", label: "Notes" },
     { href: "/books/", label: "Books" },
+    { href: "/drawings/", label: "Drawings" },
+    { href: "/songs/", label: "Songs" },
+    { href: "/toys/", label: "Toys" },
+    { href: "/resume/", label: "Resume" },
   ],
 }

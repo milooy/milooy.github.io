@@ -69,6 +69,7 @@ h3 {
 
 .site-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-4);
@@ -87,7 +88,8 @@ h3 {
 
 .site-header ul {
   display: flex;
-  gap: var(--space-5);
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -129,9 +131,30 @@ main {
   height: 12px;
 }
 
+.eyebrow {
+  margin: 0;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .lede {
   color: var(--ink-soft);
   margin: 0;
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .site-header ul {
+    gap: var(--space-1) var(--space-4);
+    font-size: 15px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

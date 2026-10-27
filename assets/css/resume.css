@@ -1,0 +1,217 @@
+/* Resume: 읽기 모드 위에 접는 경력, 회사 목록, 인쇄 스타일 */
+.resume .post-head {
+  position: relative;
+}
+
+.print-button {
+  padding: 2px var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.print-button:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* 태그 자리: 본문에서 <small>로 쓴다 */
+.resume small {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.resume summary small,
+.resume li > small:first-child {
+  display: inline-block;
+  margin-right: var(--space-1);
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 12px;
+  line-height: 1.7;
+  vertical-align: 1px;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  padding: 0;
+  list-style: none;
+  font-size: 15px;
+}
+
+.prose .contact li + li {
+  margin-top: 0;
+}
+
+/* 경력: 회사 이름 옆에 기간, 아래에 직함 */
+.jobs h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-2);
+  margin: var(--space-5) 0 var(--space-1);
+  font-size: 19px;
+}
+
+.jobs h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.jobs ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prose .jobs li + li {
+  margin-top: 0;
+}
+
+.resume li time {
+  margin-left: var(--space-2);
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 접는 항목 */
+.resume details {
+  margin: 0 0 var(--space-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.resume summary {
+  padding: var(--space-2) 0;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.resume summary::marker {
+  color: var(--ink-soft);
+}
+
+.resume details[open] > summary {
+  margin-bottom: var(--space-2);
+}
+
+.resume details details {
+  margin-left: var(--space-4);
+}
+
+.resume details details summary {
+  font-weight: 500;
+}
+
+.resume details > :last-child {
+  margin-bottom: var(--space-4);
+}
+
+.resume .prose h4 {
+  margin: var(--space-5) 0 var(--space-2);
+  font-size: 16px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-3);
+  margin: 0 0 var(--space-5);
+}
+
+.gallery p {
+  display: contents;
+}
+
+.gallery img {
+  width: 100%;
+}
+
+.book-cover {
+  width: 120px;
+}
+
+@media print {
+  @page {
+    margin: 16mm 14mm;
+  }
+
+  :root {
+    --paper: #fff;
+    --ink: #000;
+    --ink-soft: #444;
+    --line: #ccc;
+    --accent: #000;
+  }
+
+  body {
+    font-size: 10.5pt;
+    line-height: 1.6;
+  }
+
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .print-button,
+  .gallery,
+  .resume img {
+    display: none;
+  }
+
+  .reading {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* 접힌 내용까지 모두 찍는다 */
+  .resume details::details-content {
+    content-visibility: visible;
+    display: block;
+  }
+
+  .resume summary {
+    list-style: none;
+  }
+
+  .resume summary::marker,
+  .resume summary::-webkit-details-marker {
+    display: none;
+    content: "";
+  }
+
+  .resume details {
+    border: 0;
+  }
+
+  .resume details details {
+    margin-left: 0;
+  }
+
+  .resume h2 {
+    margin-top: var(--space-6);
+    break-after: avoid;
+  }
+
+  .resume h3,
+  .resume h4,
+  .resume summary {
+    break-after: avoid;
+  }
+
+  .resume li {
+    break-inside: avoid;
+  }
+
+  .prose a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

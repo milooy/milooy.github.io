@@ -361,7 +361,15 @@
   color: var(--ink-soft);
 }
 
-.note-list.compact .prose {
+.note-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 0 var(--space-3);
+  border-radius: var(--radius);
+}
+
+.note-list.compact :is(.prose, .note-image) {
   display: none;
 }
 
