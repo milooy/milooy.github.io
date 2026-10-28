@@ -74,7 +74,7 @@ export const FRAMES = ["black", "wood", "white", "none"] as const
 
 export type Drawing = {
   slug: string
-  title: string
+  title?: string // 없으면 명패에 날짜만
   date: string
   image: string
   width: number
@@ -334,7 +334,7 @@ export const loadDrawings = (): Drawing[] =>
       if (image && !dims) fail(doc, `\`image\`(${image})의 크기를 읽지 못했다`)
       return {
         slug: doc.slug,
-        title: str(doc, "title", true) ?? doc.slug,
+        title: str(doc, "title"),
         date: date(doc, "date").date,
         image,
         width: dims?.width ?? 1,

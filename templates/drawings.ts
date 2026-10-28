@@ -20,6 +20,9 @@ const sizeOf = (item: Drawing) =>
 const frameOf = (item: Drawing): Frame =>
   item.frame ?? FRAMES[(hash(item.slug) >>> 4) % FRAMES.length]
 const ratioOf = (item: Drawing) => item.width / item.height
+// 제목 없는 그림은 명패에 날짜만 적는다. 대체 텍스트는 날짜로 채운다
+const altOf = (item: Drawing) =>
+  item.title ?? `${formatDate(item.date)}에 그린 그림`
 
 // 줄 높이(그림 높이). 벽 폭에 대한 비율이다. 줄의 첫 그림 크기로 정한다.
 const ROW_H = { l: 0.4, m: 0.31, s: 0.26 }
@@ -45,12 +48,12 @@ const work = (item: Drawing) =>
         src="/drawings/${item.image}"
         width="${item.width}"
         height="${item.height}"
-        alt="${item.title}"
+        alt="${altOf(item)}"
         loading="lazy"
       />
     </a>
     <figcaption class="placard">
-      <span class="placard-title">${item.title}</span>
+      ${item.title ? html`<span class="placard-title">${item.title}</span>` : ""}
       <span class="placard-meta">
         <time datetime="${item.date}">${formatDate(item.date)}</time>${
           item.medium ? ` · ${item.medium}` : ""
