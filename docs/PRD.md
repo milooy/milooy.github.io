@@ -203,7 +203,7 @@ build.ts
 | post    | `title`, `date`, `tags`                                         | `description`, `updated`, `draft`, `pinned`(목록 맨 위 고정) | 글             |
 | note    | `date`(시간 포함)                                               | `title`, `image`, `link`                                     | 짧은 글        |
 | book    | `title`, `rating`(0.5~5, 0.5 단위), `readAt`(YYYY 또는 YYYY-MM) | `author`, `cover`, `spineColor`, `isbn`, `review`(글 slug)   | 한 줄 평, 메모 |
-| drawing | `title`, `date`, `image`                                        | `medium`(재료)                                               | 그림 이야기    |
+| drawing | `date`, `image`                                                 | `title`(없으면 명패에 날짜만), `medium`(재료)                | 그림 이야기    |
 | song    | `title`, `date`, `soundcloud`(URL)                              | `original`(원곡자, 없으면 자작곡), `duration`, `cover`       | 코멘트         |
 | toy     | `title`, `year`, `summary`, `url`                               | `repo`, `stack`, `preview`                                   | 만든 이야기    |
 | resume  | `title`                                                         |                                                              | 경력 본문      |

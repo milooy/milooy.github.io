@@ -97,3 +97,44 @@
   font-weight: 600;
   text-decoration: none;
 }
+
+/* 만든 이야기: 화면 녹화와 캡션 */
+.prose figure {
+  margin: var(--space-6) 0;
+}
+
+.prose figure img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.prose figcaption {
+  margin-top: var(--space-3);
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.prose figcaption strong {
+  display: block;
+  color: var(--ink);
+  font-size: 15px;
+}
+
+/* 휴대폰 화면은 나란히 */
+.phones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-6) var(--space-5);
+  margin: var(--space-6) 0;
+}
+
+.phones figure {
+  margin: 0;
+}
+
+.phones figure img {
+  border-radius: 12px;
+}
